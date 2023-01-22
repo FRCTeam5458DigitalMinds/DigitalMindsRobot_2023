@@ -1,0 +1,469 @@
+[
+  {
+    "name": "linuxathena",
+    "architecture": "arm-v7",
+    "operatingSystem": "linux",
+    "flavor": "default",
+    "buildType": "debug",
+    "cppPath": "C:\\Users\\Public\\wpilib\\2022\\roborio\\bin\\arm-frc2022-linux-gnueabi-g++.exe",
+    "cPath": "C:\\Users\\Public\\wpilib\\2022\\roborio\\bin\\arm-frc2022-linux-gnueabi-gcc.exe",
+    "msvc": false,
+    "gcc": true,
+    "systemCppMacros": [],
+    "systemCppArgs": [],
+    "systemCMacros": [],
+    "systemCArgs": [],
+    "allLibFiles": [
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\7d40e64ff1e7645242f0a44c61a23bea\\transformed\\wpilibNewCommands-cpp-2022.4.1-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\b951f948943b3c9f431f032b485fe644\\transformed\\REVLib-cpp-2023.1.2-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\b697a77b79731ab17f9eb1017372fc20\\transformed\\REVLib-driver-2023.1.2-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\a38166a98ad1d2c2ecc408dfd1362314\\transformed\\wpiapi-cpp-5.21.4-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\0538c7289cca73958e4365306ed162e1\\transformed\\api-cpp-5.21.4-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\d4c994e244eceed6a4b75007a21cb0b8\\transformed\\cci-5.21.4-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\efe6f9ad09009188ed6f58c36d374e0b\\transformed\\wpiapi-cpp-sim-5.21.4-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\512683785f0e74055d94ce80a0c47914\\transformed\\api-cpp-sim-5.21.4-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\5f9017d4acff12245c824dd6f11b25ac\\transformed\\cci-sim-5.21.4-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\48ee7b3a0260083d9eb897b628a87cd0\\transformed\\simTalonSRX-5.21.4-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\04af3039ba9e3f2b6ddfc2cf661524e6\\transformed\\simTalonFX-5.21.4-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\50429884782bd2c87e92e6ed31a7c9bb\\transformed\\simVictorSPX-5.21.4-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\2c49037b89ffbde160f070e6d0e0c10f\\transformed\\simPigeonIMU-5.21.4-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\232df8c43ca828cd141912b1c9ad5240\\transformed\\simCANCoder-5.21.4-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\ee317f539a876085fb0bda125d9b76d1\\transformed\\wpilibOldCommands-cpp-2022.4.1-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\021107665cf4b30026c91487f6666245\\transformed\\wpilibc-cpp-2022.4.1-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\5fedb106d99378334cd0aade86ec11ca\\transformed\\ntcore-cpp-2022.4.1-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\8cbc695953014c7b82a207440e567cd2\\transformed\\hal-cpp-2022.4.1-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\959cd234070cb1ad5ace4b3b15955aed\\transformed\\wpimath-cpp-2022.4.1-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\890a1ce0aefa22ae68e84a07c6f026ee\\transformed\\wpiutil-cpp-2022.4.1-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\5154b265dbbbebf7618150ee976e4736\\transformed\\netcomm-2022.4.0-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\9237a090a5db929bdcff6364ec5634bb\\transformed\\chipobject-2022.4.0-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\6a4a47e17bd7f2070d12b8e9c0cbdb3e\\transformed\\visa-2022.4.0-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\82dbc8c1c7fa63799e5c2c18d943e6e8\\transformed\\cameraserver-cpp-2022.4.1-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\e8cf8d95f90025b0046795839b1f5cb2\\transformed\\cscore-cpp-2022.4.1-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\30bea9114bf75f91d18347a8be921f2a\\transformed\\opencv-cpp-4.5.2-1-headers\\",
+      "C:\\Users\\Digital Minds 2\\Documents\\2023_5458_Robot\\2023_5458_Robot\\src\\main\\include\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\4084eeeb6b74cb7052a34b696e40e878\\transformed\\wpilibNewCommands-cpp-2022.4.1-sources\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\2cb443a3e3d5c3b6b58ad7b113e4731b\\transformed\\wpilibOldCommands-cpp-2022.4.1-sources\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\ab87cf25d0eb9a06f90cb5f3ee811b0e\\transformed\\wpilibc-cpp-2022.4.1-sources\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\5f3903579b8e823212596faa065a2965\\transformed\\ntcore-cpp-2022.4.1-sources\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\9110fe7d8586b2c8500470d31a8994f2\\transformed\\hal-cpp-2022.4.1-sources\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\20466a0b0883a951a6cdaf9f82c3144a\\transformed\\wpimath-cpp-2022.4.1-sources\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\62968d0df09c905216bc8a563af23a25\\transformed\\wpiutil-cpp-2022.4.1-sources\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\d0c186d3b35e64217f5a577a7149836f\\transformed\\cameraserver-cpp-2022.4.1-sources\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\25b6df8151c793adbfce517a4324204a\\transformed\\cscore-cpp-2022.4.1-sources\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\79aac71c8d50718f8b9bc13bcdcf9b4f\\transformed\\opencv-cpp-4.5.2-1-sources\\"
+    ],
+    "allLibSources": [
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\4084eeeb6b74cb7052a34b696e40e878\\transformed\\wpilibNewCommands-cpp-2022.4.1-sources\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\2cb443a3e3d5c3b6b58ad7b113e4731b\\transformed\\wpilibOldCommands-cpp-2022.4.1-sources\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\ab87cf25d0eb9a06f90cb5f3ee811b0e\\transformed\\wpilibc-cpp-2022.4.1-sources\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\5f3903579b8e823212596faa065a2965\\transformed\\ntcore-cpp-2022.4.1-sources\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\9110fe7d8586b2c8500470d31a8994f2\\transformed\\hal-cpp-2022.4.1-sources\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\20466a0b0883a951a6cdaf9f82c3144a\\transformed\\wpimath-cpp-2022.4.1-sources\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\62968d0df09c905216bc8a563af23a25\\transformed\\wpiutil-cpp-2022.4.1-sources\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\d0c186d3b35e64217f5a577a7149836f\\transformed\\cameraserver-cpp-2022.4.1-sources\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\25b6df8151c793adbfce517a4324204a\\transformed\\cscore-cpp-2022.4.1-sources\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\79aac71c8d50718f8b9bc13bcdcf9b4f\\transformed\\opencv-cpp-4.5.2-1-sources\\"
+    ],
+    "allLibHeaders": [
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\7d40e64ff1e7645242f0a44c61a23bea\\transformed\\wpilibNewCommands-cpp-2022.4.1-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\b951f948943b3c9f431f032b485fe644\\transformed\\REVLib-cpp-2023.1.2-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\b697a77b79731ab17f9eb1017372fc20\\transformed\\REVLib-driver-2023.1.2-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\a38166a98ad1d2c2ecc408dfd1362314\\transformed\\wpiapi-cpp-5.21.4-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\0538c7289cca73958e4365306ed162e1\\transformed\\api-cpp-5.21.4-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\d4c994e244eceed6a4b75007a21cb0b8\\transformed\\cci-5.21.4-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\efe6f9ad09009188ed6f58c36d374e0b\\transformed\\wpiapi-cpp-sim-5.21.4-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\512683785f0e74055d94ce80a0c47914\\transformed\\api-cpp-sim-5.21.4-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\5f9017d4acff12245c824dd6f11b25ac\\transformed\\cci-sim-5.21.4-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\48ee7b3a0260083d9eb897b628a87cd0\\transformed\\simTalonSRX-5.21.4-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\04af3039ba9e3f2b6ddfc2cf661524e6\\transformed\\simTalonFX-5.21.4-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\50429884782bd2c87e92e6ed31a7c9bb\\transformed\\simVictorSPX-5.21.4-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\2c49037b89ffbde160f070e6d0e0c10f\\transformed\\simPigeonIMU-5.21.4-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\232df8c43ca828cd141912b1c9ad5240\\transformed\\simCANCoder-5.21.4-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\ee317f539a876085fb0bda125d9b76d1\\transformed\\wpilibOldCommands-cpp-2022.4.1-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\021107665cf4b30026c91487f6666245\\transformed\\wpilibc-cpp-2022.4.1-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\5fedb106d99378334cd0aade86ec11ca\\transformed\\ntcore-cpp-2022.4.1-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\8cbc695953014c7b82a207440e567cd2\\transformed\\hal-cpp-2022.4.1-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\959cd234070cb1ad5ace4b3b15955aed\\transformed\\wpimath-cpp-2022.4.1-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\890a1ce0aefa22ae68e84a07c6f026ee\\transformed\\wpiutil-cpp-2022.4.1-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\5154b265dbbbebf7618150ee976e4736\\transformed\\netcomm-2022.4.0-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\9237a090a5db929bdcff6364ec5634bb\\transformed\\chipobject-2022.4.0-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\6a4a47e17bd7f2070d12b8e9c0cbdb3e\\transformed\\visa-2022.4.0-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\82dbc8c1c7fa63799e5c2c18d943e6e8\\transformed\\cameraserver-cpp-2022.4.1-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\e8cf8d95f90025b0046795839b1f5cb2\\transformed\\cscore-cpp-2022.4.1-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\30bea9114bf75f91d18347a8be921f2a\\transformed\\opencv-cpp-4.5.2-1-headers\\",
+      "C:\\Users\\Digital Minds 2\\Documents\\2023_5458_Robot\\2023_5458_Robot\\src\\main\\include\\"
+    ],
+    "binaries": [
+      {
+        "componentName": "frcUserProgram",
+        "sourceSets": [
+          {
+            "source": {
+              "srcDirs": [
+                "C:\\Users\\Digital Minds 2\\Documents\\2023_5458_Robot\\2023_5458_Robot\\src\\main\\cpp\\"
+              ],
+              "includes": [
+                "**/*.cpp",
+                "**/*.cc"
+              ],
+              "excludes": []
+            },
+            "exportedHeaders": {
+              "srcDirs": [
+                "C:\\Users\\Digital Minds 2\\Documents\\2023_5458_Robot\\2023_5458_Robot\\src\\main\\include\\"
+              ],
+              "includes": [],
+              "excludes": []
+            },
+            "cpp": true,
+            "args": [
+              "-Wall",
+              "-Wextra",
+              "-std=c++17",
+              "-Wformat=2",
+              "-pedantic",
+              "-Wno-psabi",
+              "-Wno-unused-parameter",
+              "-Wno-error=deprecated-declarations",
+              "-fPIC",
+              "-rdynamic",
+              "-pthread",
+              "-Og",
+              "-g"
+            ],
+            "macros": []
+          }
+        ],
+        "libHeaders": [
+          "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\7d40e64ff1e7645242f0a44c61a23bea\\transformed\\wpilibNewCommands-cpp-2022.4.1-headers\\",
+          "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\b951f948943b3c9f431f032b485fe644\\transformed\\REVLib-cpp-2023.1.2-headers\\",
+          "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\b697a77b79731ab17f9eb1017372fc20\\transformed\\REVLib-driver-2023.1.2-headers\\",
+          "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\a38166a98ad1d2c2ecc408dfd1362314\\transformed\\wpiapi-cpp-5.21.4-headers\\",
+          "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\0538c7289cca73958e4365306ed162e1\\transformed\\api-cpp-5.21.4-headers\\",
+          "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\d4c994e244eceed6a4b75007a21cb0b8\\transformed\\cci-5.21.4-headers\\",
+          "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\efe6f9ad09009188ed6f58c36d374e0b\\transformed\\wpiapi-cpp-sim-5.21.4-headers\\",
+          "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\512683785f0e74055d94ce80a0c47914\\transformed\\api-cpp-sim-5.21.4-headers\\",
+          "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\5f9017d4acff12245c824dd6f11b25ac\\transformed\\cci-sim-5.21.4-headers\\",
+          "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\48ee7b3a0260083d9eb897b628a87cd0\\transformed\\simTalonSRX-5.21.4-headers\\",
+          "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\04af3039ba9e3f2b6ddfc2cf661524e6\\transformed\\simTalonFX-5.21.4-headers\\",
+          "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\50429884782bd2c87e92e6ed31a7c9bb\\transformed\\simVictorSPX-5.21.4-headers\\",
+          "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\2c49037b89ffbde160f070e6d0e0c10f\\transformed\\simPigeonIMU-5.21.4-headers\\",
+          "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\232df8c43ca828cd141912b1c9ad5240\\transformed\\simCANCoder-5.21.4-headers\\",
+          "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\ee317f539a876085fb0bda125d9b76d1\\transformed\\wpilibOldCommands-cpp-2022.4.1-headers\\",
+          "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\021107665cf4b30026c91487f6666245\\transformed\\wpilibc-cpp-2022.4.1-headers\\",
+          "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\5fedb106d99378334cd0aade86ec11ca\\transformed\\ntcore-cpp-2022.4.1-headers\\",
+          "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\8cbc695953014c7b82a207440e567cd2\\transformed\\hal-cpp-2022.4.1-headers\\",
+          "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\959cd234070cb1ad5ace4b3b15955aed\\transformed\\wpimath-cpp-2022.4.1-headers\\",
+          "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\890a1ce0aefa22ae68e84a07c6f026ee\\transformed\\wpiutil-cpp-2022.4.1-headers\\",
+          "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\5154b265dbbbebf7618150ee976e4736\\transformed\\netcomm-2022.4.0-headers\\",
+          "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\9237a090a5db929bdcff6364ec5634bb\\transformed\\chipobject-2022.4.0-headers\\",
+          "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\6a4a47e17bd7f2070d12b8e9c0cbdb3e\\transformed\\visa-2022.4.0-headers\\",
+          "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\82dbc8c1c7fa63799e5c2c18d943e6e8\\transformed\\cameraserver-cpp-2022.4.1-headers\\",
+          "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\e8cf8d95f90025b0046795839b1f5cb2\\transformed\\cscore-cpp-2022.4.1-headers\\",
+          "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\30bea9114bf75f91d18347a8be921f2a\\transformed\\opencv-cpp-4.5.2-1-headers\\",
+          "C:\\Users\\Digital Minds 2\\Documents\\2023_5458_Robot\\2023_5458_Robot\\src\\main\\include\\"
+        ],
+        "sharedLibrary": false,
+        "executable": true
+      }
+    ],
+    "sourceBinaries": [
+      {
+        "source": {
+          "srcDirs": [
+            "C:\\Users\\Digital Minds 2\\Documents\\2023_5458_Robot\\2023_5458_Robot\\src\\main\\cpp\\"
+          ],
+          "includes": [
+            "**/*.cpp",
+            "**/*.cc"
+          ],
+          "excludes": []
+        },
+        "componentName": "frcUserProgram",
+        "cpp": true,
+        "args": [
+          "-Wall",
+          "-Wextra",
+          "-std=c++17",
+          "-Wformat=2",
+          "-pedantic",
+          "-Wno-psabi",
+          "-Wno-unused-parameter",
+          "-Wno-error=deprecated-declarations",
+          "-fPIC",
+          "-rdynamic",
+          "-pthread",
+          "-Og",
+          "-g"
+        ],
+        "macros": [],
+        "sharedLibrary": false,
+        "executable": true
+      },
+      {
+        "source": {
+          "srcDirs": [
+            "C:\\Users\\Digital Minds 2\\Documents\\2023_5458_Robot\\2023_5458_Robot\\src\\main\\include\\"
+          ],
+          "includes": [],
+          "excludes": []
+        },
+        "componentName": "frcUserProgram",
+        "cpp": true,
+        "args": [
+          "-Wall",
+          "-Wextra",
+          "-std=c++17",
+          "-Wformat=2",
+          "-pedantic",
+          "-Wno-psabi",
+          "-Wno-unused-parameter",
+          "-Wno-error=deprecated-declarations",
+          "-fPIC",
+          "-rdynamic",
+          "-pthread",
+          "-Og",
+          "-g"
+        ],
+        "macros": [],
+        "sharedLibrary": false,
+        "executable": true
+      }
+    ],
+    "nameBinaryMap": {
+      "frcUserProgram": 0
+    }
+  },
+  {
+    "name": "linuxathena",
+    "architecture": "arm-v7",
+    "operatingSystem": "linux",
+    "flavor": "default",
+    "buildType": "release",
+    "cppPath": "C:\\Users\\Public\\wpilib\\2022\\roborio\\bin\\arm-frc2022-linux-gnueabi-g++.exe",
+    "cPath": "C:\\Users\\Public\\wpilib\\2022\\roborio\\bin\\arm-frc2022-linux-gnueabi-gcc.exe",
+    "msvc": false,
+    "gcc": true,
+    "systemCppMacros": [],
+    "systemCppArgs": [],
+    "systemCMacros": [],
+    "systemCArgs": [],
+    "allLibFiles": [
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\7d40e64ff1e7645242f0a44c61a23bea\\transformed\\wpilibNewCommands-cpp-2022.4.1-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\b951f948943b3c9f431f032b485fe644\\transformed\\REVLib-cpp-2023.1.2-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\b697a77b79731ab17f9eb1017372fc20\\transformed\\REVLib-driver-2023.1.2-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\a38166a98ad1d2c2ecc408dfd1362314\\transformed\\wpiapi-cpp-5.21.4-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\0538c7289cca73958e4365306ed162e1\\transformed\\api-cpp-5.21.4-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\d4c994e244eceed6a4b75007a21cb0b8\\transformed\\cci-5.21.4-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\efe6f9ad09009188ed6f58c36d374e0b\\transformed\\wpiapi-cpp-sim-5.21.4-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\512683785f0e74055d94ce80a0c47914\\transformed\\api-cpp-sim-5.21.4-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\5f9017d4acff12245c824dd6f11b25ac\\transformed\\cci-sim-5.21.4-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\48ee7b3a0260083d9eb897b628a87cd0\\transformed\\simTalonSRX-5.21.4-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\04af3039ba9e3f2b6ddfc2cf661524e6\\transformed\\simTalonFX-5.21.4-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\50429884782bd2c87e92e6ed31a7c9bb\\transformed\\simVictorSPX-5.21.4-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\2c49037b89ffbde160f070e6d0e0c10f\\transformed\\simPigeonIMU-5.21.4-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\232df8c43ca828cd141912b1c9ad5240\\transformed\\simCANCoder-5.21.4-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\ee317f539a876085fb0bda125d9b76d1\\transformed\\wpilibOldCommands-cpp-2022.4.1-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\021107665cf4b30026c91487f6666245\\transformed\\wpilibc-cpp-2022.4.1-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\5fedb106d99378334cd0aade86ec11ca\\transformed\\ntcore-cpp-2022.4.1-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\8cbc695953014c7b82a207440e567cd2\\transformed\\hal-cpp-2022.4.1-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\959cd234070cb1ad5ace4b3b15955aed\\transformed\\wpimath-cpp-2022.4.1-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\890a1ce0aefa22ae68e84a07c6f026ee\\transformed\\wpiutil-cpp-2022.4.1-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\5154b265dbbbebf7618150ee976e4736\\transformed\\netcomm-2022.4.0-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\9237a090a5db929bdcff6364ec5634bb\\transformed\\chipobject-2022.4.0-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\6a4a47e17bd7f2070d12b8e9c0cbdb3e\\transformed\\visa-2022.4.0-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\82dbc8c1c7fa63799e5c2c18d943e6e8\\transformed\\cameraserver-cpp-2022.4.1-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\e8cf8d95f90025b0046795839b1f5cb2\\transformed\\cscore-cpp-2022.4.1-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\30bea9114bf75f91d18347a8be921f2a\\transformed\\opencv-cpp-4.5.2-1-headers\\",
+      "C:\\Users\\Digital Minds 2\\Documents\\2023_5458_Robot\\2023_5458_Robot\\src\\main\\include\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\4084eeeb6b74cb7052a34b696e40e878\\transformed\\wpilibNewCommands-cpp-2022.4.1-sources\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\2cb443a3e3d5c3b6b58ad7b113e4731b\\transformed\\wpilibOldCommands-cpp-2022.4.1-sources\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\ab87cf25d0eb9a06f90cb5f3ee811b0e\\transformed\\wpilibc-cpp-2022.4.1-sources\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\5f3903579b8e823212596faa065a2965\\transformed\\ntcore-cpp-2022.4.1-sources\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\9110fe7d8586b2c8500470d31a8994f2\\transformed\\hal-cpp-2022.4.1-sources\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\20466a0b0883a951a6cdaf9f82c3144a\\transformed\\wpimath-cpp-2022.4.1-sources\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\62968d0df09c905216bc8a563af23a25\\transformed\\wpiutil-cpp-2022.4.1-sources\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\d0c186d3b35e64217f5a577a7149836f\\transformed\\cameraserver-cpp-2022.4.1-sources\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\25b6df8151c793adbfce517a4324204a\\transformed\\cscore-cpp-2022.4.1-sources\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\79aac71c8d50718f8b9bc13bcdcf9b4f\\transformed\\opencv-cpp-4.5.2-1-sources\\"
+    ],
+    "allLibSources": [
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\4084eeeb6b74cb7052a34b696e40e878\\transformed\\wpilibNewCommands-cpp-2022.4.1-sources\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\2cb443a3e3d5c3b6b58ad7b113e4731b\\transformed\\wpilibOldCommands-cpp-2022.4.1-sources\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\ab87cf25d0eb9a06f90cb5f3ee811b0e\\transformed\\wpilibc-cpp-2022.4.1-sources\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\5f3903579b8e823212596faa065a2965\\transformed\\ntcore-cpp-2022.4.1-sources\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\9110fe7d8586b2c8500470d31a8994f2\\transformed\\hal-cpp-2022.4.1-sources\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\20466a0b0883a951a6cdaf9f82c3144a\\transformed\\wpimath-cpp-2022.4.1-sources\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\62968d0df09c905216bc8a563af23a25\\transformed\\wpiutil-cpp-2022.4.1-sources\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\d0c186d3b35e64217f5a577a7149836f\\transformed\\cameraserver-cpp-2022.4.1-sources\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\25b6df8151c793adbfce517a4324204a\\transformed\\cscore-cpp-2022.4.1-sources\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\79aac71c8d50718f8b9bc13bcdcf9b4f\\transformed\\opencv-cpp-4.5.2-1-sources\\"
+    ],
+    "allLibHeaders": [
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\7d40e64ff1e7645242f0a44c61a23bea\\transformed\\wpilibNewCommands-cpp-2022.4.1-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\b951f948943b3c9f431f032b485fe644\\transformed\\REVLib-cpp-2023.1.2-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\b697a77b79731ab17f9eb1017372fc20\\transformed\\REVLib-driver-2023.1.2-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\a38166a98ad1d2c2ecc408dfd1362314\\transformed\\wpiapi-cpp-5.21.4-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\0538c7289cca73958e4365306ed162e1\\transformed\\api-cpp-5.21.4-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\d4c994e244eceed6a4b75007a21cb0b8\\transformed\\cci-5.21.4-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\efe6f9ad09009188ed6f58c36d374e0b\\transformed\\wpiapi-cpp-sim-5.21.4-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\512683785f0e74055d94ce80a0c47914\\transformed\\api-cpp-sim-5.21.4-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\5f9017d4acff12245c824dd6f11b25ac\\transformed\\cci-sim-5.21.4-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\48ee7b3a0260083d9eb897b628a87cd0\\transformed\\simTalonSRX-5.21.4-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\04af3039ba9e3f2b6ddfc2cf661524e6\\transformed\\simTalonFX-5.21.4-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\50429884782bd2c87e92e6ed31a7c9bb\\transformed\\simVictorSPX-5.21.4-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\2c49037b89ffbde160f070e6d0e0c10f\\transformed\\simPigeonIMU-5.21.4-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\232df8c43ca828cd141912b1c9ad5240\\transformed\\simCANCoder-5.21.4-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\ee317f539a876085fb0bda125d9b76d1\\transformed\\wpilibOldCommands-cpp-2022.4.1-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\021107665cf4b30026c91487f6666245\\transformed\\wpilibc-cpp-2022.4.1-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\5fedb106d99378334cd0aade86ec11ca\\transformed\\ntcore-cpp-2022.4.1-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\8cbc695953014c7b82a207440e567cd2\\transformed\\hal-cpp-2022.4.1-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\959cd234070cb1ad5ace4b3b15955aed\\transformed\\wpimath-cpp-2022.4.1-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\890a1ce0aefa22ae68e84a07c6f026ee\\transformed\\wpiutil-cpp-2022.4.1-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\5154b265dbbbebf7618150ee976e4736\\transformed\\netcomm-2022.4.0-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\9237a090a5db929bdcff6364ec5634bb\\transformed\\chipobject-2022.4.0-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\6a4a47e17bd7f2070d12b8e9c0cbdb3e\\transformed\\visa-2022.4.0-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\82dbc8c1c7fa63799e5c2c18d943e6e8\\transformed\\cameraserver-cpp-2022.4.1-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\e8cf8d95f90025b0046795839b1f5cb2\\transformed\\cscore-cpp-2022.4.1-headers\\",
+      "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\30bea9114bf75f91d18347a8be921f2a\\transformed\\opencv-cpp-4.5.2-1-headers\\",
+      "C:\\Users\\Digital Minds 2\\Documents\\2023_5458_Robot\\2023_5458_Robot\\src\\main\\include\\"
+    ],
+    "binaries": [
+      {
+        "componentName": "frcUserProgram",
+        "sourceSets": [
+          {
+            "source": {
+              "srcDirs": [
+                "C:\\Users\\Digital Minds 2\\Documents\\2023_5458_Robot\\2023_5458_Robot\\src\\main\\cpp\\"
+              ],
+              "includes": [
+                "**/*.cpp",
+                "**/*.cc"
+              ],
+              "excludes": []
+            },
+            "exportedHeaders": {
+              "srcDirs": [
+                "C:\\Users\\Digital Minds 2\\Documents\\2023_5458_Robot\\2023_5458_Robot\\src\\main\\include\\"
+              ],
+              "includes": [],
+              "excludes": []
+            },
+            "cpp": true,
+            "args": [
+              "-Wall",
+              "-Wextra",
+              "-std=c++17",
+              "-Wformat=2",
+              "-pedantic",
+              "-Wno-psabi",
+              "-Wno-unused-parameter",
+              "-Wno-error=deprecated-declarations",
+              "-fPIC",
+              "-rdynamic",
+              "-pthread",
+              "-O2"
+            ],
+            "macros": []
+          }
+        ],
+        "libHeaders": [
+          "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\7d40e64ff1e7645242f0a44c61a23bea\\transformed\\wpilibNewCommands-cpp-2022.4.1-headers\\",
+          "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\b951f948943b3c9f431f032b485fe644\\transformed\\REVLib-cpp-2023.1.2-headers\\",
+          "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\b697a77b79731ab17f9eb1017372fc20\\transformed\\REVLib-driver-2023.1.2-headers\\",
+          "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\a38166a98ad1d2c2ecc408dfd1362314\\transformed\\wpiapi-cpp-5.21.4-headers\\",
+          "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\0538c7289cca73958e4365306ed162e1\\transformed\\api-cpp-5.21.4-headers\\",
+          "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\d4c994e244eceed6a4b75007a21cb0b8\\transformed\\cci-5.21.4-headers\\",
+          "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\efe6f9ad09009188ed6f58c36d374e0b\\transformed\\wpiapi-cpp-sim-5.21.4-headers\\",
+          "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\512683785f0e74055d94ce80a0c47914\\transformed\\api-cpp-sim-5.21.4-headers\\",
+          "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\5f9017d4acff12245c824dd6f11b25ac\\transformed\\cci-sim-5.21.4-headers\\",
+          "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\48ee7b3a0260083d9eb897b628a87cd0\\transformed\\simTalonSRX-5.21.4-headers\\",
+          "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\04af3039ba9e3f2b6ddfc2cf661524e6\\transformed\\simTalonFX-5.21.4-headers\\",
+          "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\50429884782bd2c87e92e6ed31a7c9bb\\transformed\\simVictorSPX-5.21.4-headers\\",
+          "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\2c49037b89ffbde160f070e6d0e0c10f\\transformed\\simPigeonIMU-5.21.4-headers\\",
+          "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\232df8c43ca828cd141912b1c9ad5240\\transformed\\simCANCoder-5.21.4-headers\\",
+          "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\ee317f539a876085fb0bda125d9b76d1\\transformed\\wpilibOldCommands-cpp-2022.4.1-headers\\",
+          "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\021107665cf4b30026c91487f6666245\\transformed\\wpilibc-cpp-2022.4.1-headers\\",
+          "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\5fedb106d99378334cd0aade86ec11ca\\transformed\\ntcore-cpp-2022.4.1-headers\\",
+          "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\8cbc695953014c7b82a207440e567cd2\\transformed\\hal-cpp-2022.4.1-headers\\",
+          "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\959cd234070cb1ad5ace4b3b15955aed\\transformed\\wpimath-cpp-2022.4.1-headers\\",
+          "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\890a1ce0aefa22ae68e84a07c6f026ee\\transformed\\wpiutil-cpp-2022.4.1-headers\\",
+          "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\5154b265dbbbebf7618150ee976e4736\\transformed\\netcomm-2022.4.0-headers\\",
+          "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\9237a090a5db929bdcff6364ec5634bb\\transformed\\chipobject-2022.4.0-headers\\",
+          "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\6a4a47e17bd7f2070d12b8e9c0cbdb3e\\transformed\\visa-2022.4.0-headers\\",
+          "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\82dbc8c1c7fa63799e5c2c18d943e6e8\\transformed\\cameraserver-cpp-2022.4.1-headers\\",
+          "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\e8cf8d95f90025b0046795839b1f5cb2\\transformed\\cscore-cpp-2022.4.1-headers\\",
+          "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\30bea9114bf75f91d18347a8be921f2a\\transformed\\opencv-cpp-4.5.2-1-headers\\",
+          "C:\\Users\\Digital Minds 2\\Documents\\2023_5458_Robot\\2023_5458_Robot\\src\\main\\include\\"
+        ],
+        "sharedLibrary": false,
+        "executable": true
+      }
+    ],
+    "sourceBinaries": [
+      {
+        "source": {
+          "srcDirs": [
+            "C:\\Users\\Digital Minds 2\\Documents\\2023_5458_Robot\\2023_5458_Robot\\src\\main\\cpp\\"
+          ],
+          "includes": [
+            "**/*.cpp",
+            "**/*.cc"
+          ],
+          "excludes": []
+        },
+        "componentName": "frcUserProgram",
+        "cpp": true,
+        "args": [
+          "-Wall",
+          "-Wextra",
+          "-std=c++17",
+          "-Wformat=2",
+          "-pedantic",
+          "-Wno-psabi",
+          "-Wno-unused-parameter",
+          "-Wno-error=deprecated-declarations",
+          "-fPIC",
+          "-rdynamic",
+          "-pthread",
+          "-O2"
+        ],
+        "macros": [],
+        "sharedLibrary": false,
+        "executable": true
+      },
+      {
+        "source": {
+          "srcDirs": [
+            "C:\\Users\\Digital Minds 2\\Documents\\2023_5458_Robot\\2023_5458_Robot\\src\\main\\include\\"
+          ],
+          "includes": [],
+          "excludes": []
+        },
+        "componentName": "frcUserProgram",
+        "cpp": true,
+        "args": [
+          "-Wall",
+          "-Wextra",
+          "-std=c++17",
+          "-Wformat=2",
+          "-pedantic",
+          "-Wno-psabi",
+          "-Wno-unused-parameter",
+          "-Wno-error=deprecated-declarations",
+          "-fPIC",
+          "-rdynamic",
+          "-pthread",
+          "-O2"
+        ],
+        "macros": [],
+        "sharedLibrary": false,
+        "executable": true
+      }
+    ],
+    "nameBinaryMap": {
+      "frcUserProgram": 0
+    }
+  }
+]
