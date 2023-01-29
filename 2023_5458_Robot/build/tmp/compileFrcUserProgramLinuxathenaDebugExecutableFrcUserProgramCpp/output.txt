@@ -1,10 +1,10 @@
-See file:///C:/Users/Digital%20Minds%202/Documents/2023_5458_Robot/2023_5458_Robot/build/tmp/compileFrcUserProgramLinuxathenaDebugExecutableFrcUserProgramCpp/output.txt for all output for compileFrcUserProgramLinuxathenaDebugExecutableFrcUserProgramCpp.
-compiling ExampleCommand.cpp successful.
+See file:///C:/Users/Digital%20Minds%202/Documents/2023_5458_Robot/build/tmp/compileFrcUserProgramLinuxathenaDebugExecutableFrcUserProgramCpp/output.txt for all output for compileFrcUserProgramLinuxathenaDebugExecutableFrcUserProgramCpp.
+compiling ExampleSubsystem.cpp successful.
 
 compiling RobotContainer.cpp successful.
 
+compiling ExampleCommand.cpp successful.
+
 compiling Robot.cpp successful.
 
-compiling ExampleSubsystem.cpp successful.
-
-Finished compileFrcUserProgramLinuxathenaDebugExecutableFrcUserProgramCpp, see full log file:///C:/Users/Digital%20Minds%202/Documents/2023_5458_Robot/2023_5458_Robot/build/tmp/compileFrcUserProgramLinuxathenaDebugExecutableFrcUserProgramCpp/output.txt.
+Finished compileFrcUserProgramLinuxathenaDebugExecutableFrcUserProgramCpp, see full log file:///C:/Users/Digital%20Minds%202/Documents/2023_5458_Robot/build/tmp/compileFrcUserProgramLinuxathenaDebugExecutableFrcUserProgramCpp/output.txt.

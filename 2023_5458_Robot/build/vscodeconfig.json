@@ -40,7 +40,7 @@
       "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\82dbc8c1c7fa63799e5c2c18d943e6e8\\transformed\\cameraserver-cpp-2022.4.1-headers\\",
       "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\e8cf8d95f90025b0046795839b1f5cb2\\transformed\\cscore-cpp-2022.4.1-headers\\",
       "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\30bea9114bf75f91d18347a8be921f2a\\transformed\\opencv-cpp-4.5.2-1-headers\\",
-      "C:\\Users\\Digital Minds 2\\Documents\\2023_5458_Robot\\2023_5458_Robot\\src\\main\\include\\",
+      "C:\\Users\\Digital Minds 2\\Documents\\2023_5458_Robot\\src\\main\\include\\",
       "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\4084eeeb6b74cb7052a34b696e40e878\\transformed\\wpilibNewCommands-cpp-2022.4.1-sources\\",
       "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\2cb443a3e3d5c3b6b58ad7b113e4731b\\transformed\\wpilibOldCommands-cpp-2022.4.1-sources\\",
       "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\ab87cf25d0eb9a06f90cb5f3ee811b0e\\transformed\\wpilibc-cpp-2022.4.1-sources\\",
@@ -91,7 +91,7 @@
       "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\82dbc8c1c7fa63799e5c2c18d943e6e8\\transformed\\cameraserver-cpp-2022.4.1-headers\\",
       "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\e8cf8d95f90025b0046795839b1f5cb2\\transformed\\cscore-cpp-2022.4.1-headers\\",
       "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\30bea9114bf75f91d18347a8be921f2a\\transformed\\opencv-cpp-4.5.2-1-headers\\",
-      "C:\\Users\\Digital Minds 2\\Documents\\2023_5458_Robot\\2023_5458_Robot\\src\\main\\include\\"
+      "C:\\Users\\Digital Minds 2\\Documents\\2023_5458_Robot\\src\\main\\include\\"
     ],
     "binaries": [
       {
@@ -100,7 +100,7 @@
           {
             "source": {
               "srcDirs": [
-                "C:\\Users\\Digital Minds 2\\Documents\\2023_5458_Robot\\2023_5458_Robot\\src\\main\\cpp\\"
+                "C:\\Users\\Digital Minds 2\\Documents\\2023_5458_Robot\\src\\main\\cpp\\"
               ],
               "includes": [
                 "**/*.cpp",
@@ -110,7 +110,7 @@
             },
             "exportedHeaders": {
               "srcDirs": [
-                "C:\\Users\\Digital Minds 2\\Documents\\2023_5458_Robot\\2023_5458_Robot\\src\\main\\include\\"
+                "C:\\Users\\Digital Minds 2\\Documents\\2023_5458_Robot\\src\\main\\include\\"
               ],
               "includes": [],
               "excludes": []
@@ -161,7 +161,7 @@
           "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\82dbc8c1c7fa63799e5c2c18d943e6e8\\transformed\\cameraserver-cpp-2022.4.1-headers\\",
           "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\e8cf8d95f90025b0046795839b1f5cb2\\transformed\\cscore-cpp-2022.4.1-headers\\",
           "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\30bea9114bf75f91d18347a8be921f2a\\transformed\\opencv-cpp-4.5.2-1-headers\\",
-          "C:\\Users\\Digital Minds 2\\Documents\\2023_5458_Robot\\2023_5458_Robot\\src\\main\\include\\"
+          "C:\\Users\\Digital Minds 2\\Documents\\2023_5458_Robot\\src\\main\\include\\"
         ],
         "sharedLibrary": false,
         "executable": true
@@ -171,7 +171,7 @@
       {
         "source": {
           "srcDirs": [
-            "C:\\Users\\Digital Minds 2\\Documents\\2023_5458_Robot\\2023_5458_Robot\\src\\main\\cpp\\"
+            "C:\\Users\\Digital Minds 2\\Documents\\2023_5458_Robot\\src\\main\\cpp\\"
           ],
           "includes": [
             "**/*.cpp",
@@ -203,7 +203,7 @@
       {
         "source": {
           "srcDirs": [
-            "C:\\Users\\Digital Minds 2\\Documents\\2023_5458_Robot\\2023_5458_Robot\\src\\main\\include\\"
+            "C:\\Users\\Digital Minds 2\\Documents\\2023_5458_Robot\\src\\main\\include\\"
           ],
           "includes": [],
           "excludes": []
@@ -275,7 +275,7 @@
       "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\82dbc8c1c7fa63799e5c2c18d943e6e8\\transformed\\cameraserver-cpp-2022.4.1-headers\\",
       "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\e8cf8d95f90025b0046795839b1f5cb2\\transformed\\cscore-cpp-2022.4.1-headers\\",
       "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\30bea9114bf75f91d18347a8be921f2a\\transformed\\opencv-cpp-4.5.2-1-headers\\",
-      "C:\\Users\\Digital Minds 2\\Documents\\2023_5458_Robot\\2023_5458_Robot\\src\\main\\include\\",
+      "C:\\Users\\Digital Minds 2\\Documents\\2023_5458_Robot\\src\\main\\include\\",
       "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\4084eeeb6b74cb7052a34b696e40e878\\transformed\\wpilibNewCommands-cpp-2022.4.1-sources\\",
       "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\2cb443a3e3d5c3b6b58ad7b113e4731b\\transformed\\wpilibOldCommands-cpp-2022.4.1-sources\\",
       "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\ab87cf25d0eb9a06f90cb5f3ee811b0e\\transformed\\wpilibc-cpp-2022.4.1-sources\\",
@@ -326,7 +326,7 @@
       "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\82dbc8c1c7fa63799e5c2c18d943e6e8\\transformed\\cameraserver-cpp-2022.4.1-headers\\",
       "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\e8cf8d95f90025b0046795839b1f5cb2\\transformed\\cscore-cpp-2022.4.1-headers\\",
       "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\30bea9114bf75f91d18347a8be921f2a\\transformed\\opencv-cpp-4.5.2-1-headers\\",
-      "C:\\Users\\Digital Minds 2\\Documents\\2023_5458_Robot\\2023_5458_Robot\\src\\main\\include\\"
+      "C:\\Users\\Digital Minds 2\\Documents\\2023_5458_Robot\\src\\main\\include\\"
     ],
     "binaries": [
       {
@@ -335,7 +335,7 @@
           {
             "source": {
               "srcDirs": [
-                "C:\\Users\\Digital Minds 2\\Documents\\2023_5458_Robot\\2023_5458_Robot\\src\\main\\cpp\\"
+                "C:\\Users\\Digital Minds 2\\Documents\\2023_5458_Robot\\src\\main\\cpp\\"
               ],
               "includes": [
                 "**/*.cpp",
@@ -345,7 +345,7 @@
             },
             "exportedHeaders": {
               "srcDirs": [
-                "C:\\Users\\Digital Minds 2\\Documents\\2023_5458_Robot\\2023_5458_Robot\\src\\main\\include\\"
+                "C:\\Users\\Digital Minds 2\\Documents\\2023_5458_Robot\\src\\main\\include\\"
               ],
               "includes": [],
               "excludes": []
@@ -395,7 +395,7 @@
           "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\82dbc8c1c7fa63799e5c2c18d943e6e8\\transformed\\cameraserver-cpp-2022.4.1-headers\\",
           "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\e8cf8d95f90025b0046795839b1f5cb2\\transformed\\cscore-cpp-2022.4.1-headers\\",
           "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\30bea9114bf75f91d18347a8be921f2a\\transformed\\opencv-cpp-4.5.2-1-headers\\",
-          "C:\\Users\\Digital Minds 2\\Documents\\2023_5458_Robot\\2023_5458_Robot\\src\\main\\include\\"
+          "C:\\Users\\Digital Minds 2\\Documents\\2023_5458_Robot\\src\\main\\include\\"
         ],
         "sharedLibrary": false,
         "executable": true
@@ -405,7 +405,7 @@
       {
         "source": {
           "srcDirs": [
-            "C:\\Users\\Digital Minds 2\\Documents\\2023_5458_Robot\\2023_5458_Robot\\src\\main\\cpp\\"
+            "C:\\Users\\Digital Minds 2\\Documents\\2023_5458_Robot\\src\\main\\cpp\\"
           ],
           "includes": [
             "**/*.cpp",
@@ -436,7 +436,7 @@
       {
         "source": {
           "srcDirs": [
-            "C:\\Users\\Digital Minds 2\\Documents\\2023_5458_Robot\\2023_5458_Robot\\src\\main\\include\\"
+            "C:\\Users\\Digital Minds 2\\Documents\\2023_5458_Robot\\src\\main\\include\\"
           ],
           "includes": [],
           "excludes": []

@@ -1,4 +1,4 @@
-See file:///C:/Users/Digital%20Minds%202/Documents/2023_5458_Robot/2023_5458_Robot/build/tmp/linkFrcUserProgramLinuxathenaDebugExecutable/output.txt for all output for linkFrcUserProgramLinuxathenaDebugExecutable.
+See file:///C:/Users/Digital%20Minds%202/Documents/2023_5458_Robot/build/tmp/linkFrcUserProgramLinuxathenaDebugExecutable/output.txt for all output for linkFrcUserProgramLinuxathenaDebugExecutable.
 linking frcUserProgram failed.
 c:/users/public/wpilib/2022/roborio/bin/../arm-frc2022-linux-gnueabi/usr/lib/gcc/arm-frc2022-linux-gnueabi/7.3.0/../../../../../../arm-frc2022-linux-gnueabi/bin/ld.exe: Dwarf Error: found dwarf version '5', this reader only handles version 2, 3 and 4 information.
 C:\Users\Digital Minds 2\.gradle\caches\transforms-3\4547cb8bf06bf7bf4f9ec341069605f5\transformed\REVLib-cpp-2023.1.2-linuxathenastaticdebug\linux\athena\static\libREVLib.a(CANSparkMax.o): In function `rev::CANSparkMax::GetEncoder(rev::SparkMaxRelativeEncoder::Type, int)':
@@ -46,4 +46,4 @@ C:\Users\Digital Minds 2\.gradle\caches\transforms-3\4d5ff21b9e3c456a741409d736a
 REVLibErrors.cpp:(.text._ZNSt15__new_allocatorISt13_Rb_tree_nodeIiEE8allocateEjPKv[_ZNSt15__new_allocatorISt13_Rb_tree_nodeIiEE8allocateEjPKv]+0x34): undefined reference to `std::__throw_bad_array_new_length()'
 collect2.exe: error: ld returned 1 exit status
 
-Finished linkFrcUserProgramLinuxathenaDebugExecutable, see full log file:///C:/Users/Digital%20Minds%202/Documents/2023_5458_Robot/2023_5458_Robot/build/tmp/linkFrcUserProgramLinuxathenaDebugExecutable/output.txt.
+Finished linkFrcUserProgramLinuxathenaDebugExecutable, see full log file:///C:/Users/Digital%20Minds%202/Documents/2023_5458_Robot/build/tmp/linkFrcUserProgramLinuxathenaDebugExecutable/output.txt.

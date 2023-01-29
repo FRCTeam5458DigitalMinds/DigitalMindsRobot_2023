@@ -15,7 +15,7 @@ c++
 -O2
 -nostdinc
 -I
-"C:\\Users\\Digital Minds 2\\Documents\\2023_5458_Robot\\2023_5458_Robot\\src\\main\\include"
+"C:\\Users\\Digital Minds 2\\Documents\\2023_5458_Robot\\src\\main\\include"
 -I
 "C:\\Users\\Digital Minds 2\\.gradle\\caches\\transforms-3\\7d40e64ff1e7645242f0a44c61a23bea\\transformed\\wpilibNewCommands-cpp-2022.4.1-headers"
 -I

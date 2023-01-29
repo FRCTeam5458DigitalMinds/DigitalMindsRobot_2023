@@ -53,7 +53,9 @@
 #include <rev/REVCommon.h>
 #include "rev/CANSparkMax.h"
 #include <frc/drive/DifferentialDrive.h>
-
+#include <cstdio>
+#include <thread>
+#include 
 
 using namespace std::chrono;
 
@@ -192,6 +194,9 @@ void Robot::AutonomousPeriodic() {
       ClawMotor.Set(.50); 
       ExtendMotorOne.SetSelectedSensorPosition(.25);
       ExtendMotorTwo.SetSelectedSensorPosition(.25); 
+      ArmMotorOne.Set(.25);
+      ClawMotor.Set(-0.50); 
+    
       autoStep++;
     }
     else if (autoStep == 2) {
@@ -204,6 +209,7 @@ void Robot::AutonomousPeriodic() {
       FrontLeftMotor.Set(0.25); 
       autoStep++; 
     }
+  //Auto for ________
   if (frc::SmartDashboard::GetNumber("Auto", 1) == 2){
     if (autoStep == 1) {
       ClawMotor.Set(.50); 
