@@ -94,26 +94,26 @@ rev::SparkMaxRelativeEncoder RightEncoder = FrontRightMotor.GetEncoder();
 
 
 
-
 rev::CANSparkMax ArmUpOne{7, rev::CANSparkMax::MotorType::kBrushless};
 rev::CANSparkMax ArmUpTwo{8, rev::CANSparkMax::MotorType::kBrushless};
-rev::SparkMaxRelativeEncoder ArmEncoder = ArmUpOne.GetEncoder();
+
+rev::SparkMaxRelativeEncoder ArmOneEncoder = ArmUpOne.GetEncoder();
+rev::SparkMaxRelativeEncoder ArmTwoEncoder = ArmUpTwo.GetEncoder();
 
 
-rev::CANSparkMax TurnTable{9, rev::CANSparkMax::MotorType::kBrushless};
-
-rev::CANSparkMax ExtentionMotor{10, rev::CANSparkMax::MotorType::kBrushless};
 
 
 
 double LeftEncoderValue;
 double RightEncoderValue;
+double ArmOneEncoderValue;
+double ArmTwoEncoderValue;
 
-
-/*
+double AverageEncoderValue;
+double AverageArmEncoderValue;
 // PID Controls
 
-*/
+
 // set amp limit
 bool enable = true;
 double currentLimit = 30;
@@ -140,7 +140,7 @@ bool buttonValueTwo;
 bool buttonValueThree;
 bool buttonValueFour;
 
-float AverageEncoderValue;
+
 void Robot::RobotInit()
 {
 
@@ -157,8 +157,8 @@ void Robot::RobotInit()
   BackLeftMotor.Follow(FrontLeftMotor);
   MiddleRightMotor.Follow(FrontRightMotor);
   BackRightMotor.Follow(FrontRightMotor);
-  ArmUpTwo.Follow(ArmUpOne);
- // ArmMotorTwo.Follow(ArmMotorOne);
+  //DO NOT CHANGE, ARM MOTORS MUST GO OPPOSITE DIRECTIONS
+
 
   // Neo motor current limit
   FrontLeftMotor.SetSmartCurrentLimit(40);
@@ -182,8 +182,7 @@ void Robot::RobotInit()
   MiddleRightMotor.SetIdleMode(rev::CANSparkMax::IdleMode::kBrake);
   BackRightMotor.SetIdleMode(rev::CANSparkMax::IdleMode::kBrake);
 
-  float AverageEncoderValue;
- 
+
   
 
   // Idle Mode Claw
@@ -213,6 +212,8 @@ void Robot::AutonomousInit()
   autoStep = 1;
   RightEncoder.SetPosition(0);
   LeftEncoder.SetPosition(0);
+  ArmOneEncoder.SetPosition(0);
+  ArmTwoEncoder.SetPosition(0);
   /* m_autonomousCommand = m_container.GetAutonomousCommand();
 
    if (m_autonomousCommand != nullptr) {
@@ -264,14 +265,16 @@ void Robot::AutonomousPeriodic()
   }
   else if(autoChooser == "2"){
     frc::SmartDashboard::PutString("DB/String 3", "AutoTwo");
-  } 
-
+  }
+  else if(autoChooser == "3"){
+    frc::SmartDashboard::PutString("DB/String 3", "AutoThree");
+  }
 AverageEncoderValue = (LeftEncoderValue + RightEncoderValue)/2;
 
 LeftEncoderValue = -LeftEncoder.GetPosition();
 RightEncoderValue = RightEncoder.GetPosition();
 
-
+frc::SmartDashboard::PutString("DB/String 7", ("Left: " + std::to_string(AverageEncoderValue)));
 frc::SmartDashboard::PutString("DB/String 0", ("Left: " + std::to_string(LeftEncoderValue)));
 frc::SmartDashboard::PutString("DB/String 1", ("Right: " + std::to_string(RightEncoderValue)));
 
@@ -283,7 +286,7 @@ else {
   FrontLeftMotor.Set(0);
   FrontRightMotor.Set(0);
 }*/
-
+//backwards5ft
 if (autoChooser == "1") {
   if (autoStep == 1 && AverageEncoderValue >= -20) {
     FrontRightMotor.Set(-0.20);
@@ -299,7 +302,7 @@ if (autoChooser == "1") {
     
 
   }
-}
+}//forwards5ft
 if (autoChooser == "2") {
   if (autoStep == 1 && AverageEncoderValue <= 20) {
     FrontRightMotor.Set(0.20);
@@ -313,6 +316,30 @@ if (autoChooser == "2") {
     FrontRightMotor.Set(0);
   }
 }
+
+if (autoChooser == "3") {
+  if (autoStep == 1 && AverageEncoderValue <= 49) {
+    FrontLeftMotor.Set(-0.20);
+    FrontRightMotor.Set(0.20);
+    
+  }
+  else if(autoStep == 1 && AverageEncoderValue >= 49) {
+    autoStep++;
+  }
+  else if(autoStep == 2 && AverageEncoderValue >= 24) {
+    FrontLeftMotor.Set(0.20);
+    FrontRightMotor.Set(-0.20);
+  }
+  else if(autoStep == 2 && AverageEncoderValue <= 24) {
+    autoStep++;
+  }
+  else if(autoStep == 3) {
+    FrontLeftMotor.Set(0);
+    FrontRightMotor.Set(0);
+  }
+
+}
+
   // Score Preloaded Cone, then Leaving the community
   /*if (frc::SmartDashboard::GetNumber("Auto", 1) == 1)
   {
@@ -478,7 +505,7 @@ if (autoChooser == "2") {
       FrontLeftMotor.Set(0.25);
       autoStep++;
     }
-    /*else if (autoStep == 6) {
+    else if (autoStep == 6) {
       Likely is going to be PID control so that the charge station is engaged
       keep fixing gyro until gyro = 0
       autoStep++;
@@ -490,6 +517,8 @@ void Robot::TeleopInit()
 {
   RightEncoder.SetPosition(0);
   LeftEncoder.SetPosition(0);
+  ArmOneEncoder.SetPosition(0);
+  ArmTwoEncoder.SetPosition(0);
 
   if (m_autonomousCommand != nullptr)
   {
@@ -500,24 +529,37 @@ void Robot::TeleopInit()
 
 void Robot::TeleopPeriodic(){
 
+if (Xbox.GetRawButton(5)) {
+  ArmUpOne.Set(-0.2);
+  ArmUpTwo.Set(0.2);
+}
+else if (Xbox.GetRawButton(6)) {
+  ArmUpOne.Set(0.2);
+  ArmUpTwo.Set(-0.2);
+}
+else {
+  ArmUpOne.Set(0);
+  ArmUpTwo.Set(0);
+}
+frc::SmartDashboard::PutString("DB/String 7", ("Average" + std::to_string(AverageEncoderValue)));
 AverageEncoderValue = (LeftEncoderValue + RightEncoderValue)/2;
 LeftEncoderValue = -LeftEncoder.GetPosition();
 RightEncoderValue = RightEncoder.GetPosition();
 
+AverageArmEncoderValue = (ArmTwoEncoderValue + ArmOneEncoderValue)/2;
+ArmOneEncoderValue = -ArmOneEncoder.GetPosition();
+ArmTwoEncoderValue = ArmTwoEncoder.GetPosition();
+
+frc::SmartDashboard::PutString("DB/String 5", std::to_string(ArmOneEncoderValue));
+frc::SmartDashboard::PutString("DB/String 6", std::to_string(ArmTwoEncoderValue));
 
 frc::SmartDashboard::PutString("DB/String 0", std::to_string(LeftEncoderValue));
 frc::SmartDashboard::PutString("DB/String 1", std::to_string(RightEncoderValue));
 
-std::cout << ("right encoder", RightEncoderValue);
-std::cout << ("left encoder", LeftEncoderValue);
 
-double ArmRotations = ArmEncoder.GetPosition();
   
-frc::SmartDashboard::PutNumber("Arm Encoder Value", ArmRotations);
 
-if (ArmRotations >= 0) {
 
-}
 /*
 SuctionMotors.Set(false);
 RollerMotor.Set(false);  
