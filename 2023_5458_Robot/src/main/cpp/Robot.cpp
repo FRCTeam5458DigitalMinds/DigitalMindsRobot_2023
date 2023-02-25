@@ -15,7 +15,7 @@
 #include <string>
 #include <sstream>
 #include <iostream>
-
+#include <ctre/phoenixpro/Utils.hpp>
 #include <frc/Timer.h>
 #include <frc/TimedRobot.h>
 #include <frc/PowerDistribution.h>
@@ -47,6 +47,8 @@
 #include <string>
 #include <frc2/command/ConditionalCommand.h>
 #include <frc2/command/CommandScheduler.h>
+#include <ctre/Phoenix.h>
+#include <ctre/phoenix/motorcontrol/can/TalonFX.h>
 
 #include <rev/REVCommon.h>
 #include "rev/CANSparkMax.h"
@@ -66,9 +68,9 @@
 #include <units/angle.h>
 #include <units/length.h>
 
-/*#include <ctre/phoenix/motorcontrol/SupplyCurrentLimitConfiguration.h>
+#include <ctre/phoenix/motorcontrol/SupplyCurrentLimitConfiguration.h>
 #include <ctre/Phoenix.h>
-#include <ctre/phoenix/motorcontrol/can/TalonFX.h> */
+#include <ctre/phoenix/motorcontrol/can/TalonFX.h> 
 
 using namespace std::chrono;
 
@@ -84,7 +86,8 @@ rev::CANSparkMax FrontRightMotor{2, rev::CANSparkMax::MotorType::kBrushless};
 rev::CANSparkMax MiddleRightMotor{4, rev::CANSparkMax::MotorType::kBrushless};
 rev::CANSparkMax BackRightMotor{6, rev::CANSparkMax::MotorType::kBrushless};
 
-
+//Gyro
+//WPI_PigeonIMU gyro{};
 
 //Drivetrain encoders
 
@@ -97,10 +100,11 @@ rev::SparkMaxRelativeEncoder RightEncoder = FrontRightMotor.GetEncoder();
 rev::CANSparkMax ArmUpOne{7, rev::CANSparkMax::MotorType::kBrushless};
 rev::CANSparkMax ArmUpTwo{8, rev::CANSparkMax::MotorType::kBrushless};
 
+WPI_TalonFX ExtensionMotorOne {10};
+WPI_TalonFX ExtensionMotorTwo {11};
+
 rev::SparkMaxRelativeEncoder ArmOneEncoder = ArmUpOne.GetEncoder();
 rev::SparkMaxRelativeEncoder ArmTwoEncoder = ArmUpTwo.GetEncoder();
-
-
 
 
 
@@ -140,6 +144,8 @@ bool buttonValueTwo;
 bool buttonValueThree;
 bool buttonValueFour;
 
+RobotContainer chooseAuto;
+
 
 void Robot::RobotInit()
 {
@@ -149,6 +155,8 @@ void Robot::RobotInit()
   // camera
   frc::CameraServer::StartAutomaticCapture();
 
+  SupplyCurrentLimitConfiguration current_limit_config(enable, currentLimit, triggerThresholdCurrent, triggerThresholdTime);
+  ExtensionMotorOne.ConfigSupplyCurrentLimit(current_limit_config);
   // Follow ExtendMotorOne
   //ExtendMotorTwo.Follow(ExtendMotorOne);
 
@@ -157,6 +165,7 @@ void Robot::RobotInit()
   BackLeftMotor.Follow(FrontLeftMotor);
   MiddleRightMotor.Follow(FrontRightMotor);
   BackRightMotor.Follow(FrontRightMotor);
+  //ExtensionMotorOne.Follow(ExtensionMotorTwo);
   //DO NOT CHANGE, ARM MOTORS MUST GO OPPOSITE DIRECTIONS
 
 
@@ -182,6 +191,7 @@ void Robot::RobotInit()
   MiddleRightMotor.SetIdleMode(rev::CANSparkMax::IdleMode::kBrake);
   BackRightMotor.SetIdleMode(rev::CANSparkMax::IdleMode::kBrake);
 
+  
 
   
 
@@ -259,6 +269,9 @@ void Robot::AutonomousInit()
 void Robot::AutonomousPeriodic()
 {
 
+//frc::SmartDashboard::PutString("DB/String 8", ("Gyro Angle", (std::to_string(gyro.GetAngle()))));
+
+
   std::string autoChooser = frc::SmartDashboard::GetString("DB/String 2", "myDefaultData");
   if(autoChooser == "1"){
     frc::SmartDashboard::PutString("DB/String 3", "AutoOne");
@@ -324,6 +337,7 @@ if (autoChooser == "3") {
     
   }
   else if(autoStep == 1 && AverageEncoderValue >= 49) {
+    
     autoStep++;
   }
   else if(autoStep == 2 && AverageEncoderValue >= 24) {
@@ -511,7 +525,7 @@ if (autoChooser == "3") {
       autoStep++;
     */
 
-  }
+}
 
 void Robot::TeleopInit()
 {
@@ -519,6 +533,8 @@ void Robot::TeleopInit()
   LeftEncoder.SetPosition(0);
   ArmOneEncoder.SetPosition(0);
   ArmTwoEncoder.SetPosition(0);
+  ExtensionMotorOne.SetSelectedSensorPosition(0);
+ 
 
   if (m_autonomousCommand != nullptr)
   {
@@ -529,6 +545,18 @@ void Robot::TeleopInit()
 
 void Robot::TeleopPeriodic(){
 
+//frc::SmartDashboard::PutString("DB/String 8", ("Gyro Angle", (std::to_string(gyro.GetAngle()))));
+
+AverageEncoderValue = (LeftEncoderValue + RightEncoderValue)/2;
+LeftEncoderValue = -LeftEncoder.GetPosition();
+RightEncoderValue = RightEncoder.GetPosition();
+
+AverageArmEncoderValue = (ArmTwoEncoderValue + ArmOneEncoderValue)/2;
+ArmOneEncoderValue = -ArmOneEncoder.GetPosition();
+ArmTwoEncoderValue = ArmTwoEncoder.GetPosition();
+
+if (AverageArmEncoderValue <= 71.5) {
+ 
 if (Xbox.GetRawButton(5)) {
   ArmUpOne.Set(-0.2);
   ArmUpTwo.Set(0.2);
@@ -541,14 +569,13 @@ else {
   ArmUpOne.Set(0);
   ArmUpTwo.Set(0);
 }
+}
+else {
+  ArmUpOne.Set(0);
+  ArmUpTwo.Set(0);
+}
 frc::SmartDashboard::PutString("DB/String 7", ("Average" + std::to_string(AverageEncoderValue)));
-AverageEncoderValue = (LeftEncoderValue + RightEncoderValue)/2;
-LeftEncoderValue = -LeftEncoder.GetPosition();
-RightEncoderValue = RightEncoder.GetPosition();
 
-AverageArmEncoderValue = (ArmTwoEncoderValue + ArmOneEncoderValue)/2;
-ArmOneEncoderValue = -ArmOneEncoder.GetPosition();
-ArmTwoEncoderValue = ArmTwoEncoder.GetPosition();
 
 frc::SmartDashboard::PutString("DB/String 5", std::to_string(ArmOneEncoderValue));
 frc::SmartDashboard::PutString("DB/String 6", std::to_string(ArmTwoEncoderValue));
@@ -581,28 +608,17 @@ RollerMotor.Set(false);
   */
   double WheelX = -Wheel.GetX();
   double JoyY = JoyStick1.GetY();
-  FrontLeftMotor.Set((WheelX*0.4) + (0.3*JoyY));
-  FrontRightMotor.Set((WheelX*0.4) - (0.3*JoyY));
+  FrontLeftMotor.Set((WheelX*0.4) + (0.6*JoyY));
+  FrontRightMotor.Set((WheelX*0.4) - (0.6*JoyY));
 
   } 
 void Robot::TestPeriodic()
 {
-  frc::SmartDashboard::PutString("DB/String 0", "This is a string");
-  std::string dashData = frc::SmartDashboard::GetString("DB/String 0", "myDefaultData");
-  frc::SmartDashboard::PutString("DB/String 1", dashData);
-  std::string autoChooser = frc::SmartDashboard::GetString("DB/String 3", "myDefaultData");
-  if(autoChooser == "1"){
-    frc::SmartDashboard::PutString("DB/String 4", "One");
-  }
-  else{
-    frc::SmartDashboard::PutString("DB/String 4", "Zero");
-  } 
+AverageArmEncoderValue = (ArmTwoEncoderValue + ArmOneEncoderValue)/2;
+ArmOneEncoderValue = -ArmOneEncoder.GetPosition();
+ArmTwoEncoderValue = ArmTwoEncoder.GetPosition();
 
-  /*SendableChooser<String> auto = new SendableChooser<String>();
-   auto.addOption("JustLeaveCommunity", "JustLeaveCommunity");
-        auto.addOption("Cit_Circuits", "Cit_Circuits");
-        SmartDashboard.putData("Auto Mode", auto);
-        String autonMode = auto.getSelected; */
+
 
   buttonValue = frc::SmartDashboard::GetBoolean("DB/Button 0", false);
   buttonValueTwo = frc::SmartDashboard::GetBoolean("DB/Button 1", false);
