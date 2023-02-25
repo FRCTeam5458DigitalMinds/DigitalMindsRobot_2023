@@ -112,7 +112,7 @@ double LeftEncoderValue;
 double RightEncoderValue;
 double ArmOneEncoderValue;
 double ArmTwoEncoderValue;
-
+double speed = 0.1;
 double AverageEncoderValue;
 double AverageArmEncoderValue;
 // PID Controls
@@ -126,7 +126,7 @@ double triggerThresholdTime = .1;
 
 // Arigato Gyro CHU MIN MIN
 // Gyro + Accelerometer
-//WPI_PigeonIMU gyro{0};
+WPI_PigeonIMU gyro{12};
 
 // Auto Variables
 int autoStep = 1;
@@ -196,7 +196,7 @@ void Robot::RobotInit()
   
 
   // Idle Mode Claw
- // ClawMotor.SetIdleMode(rev::CANSparkMax::IdleMode::kBrake);
+ //ClawMotor.SetIdleMode(rev::CANSparkMax::IdleMode::kBrake);
 
   // Auto Chooser
 
@@ -299,22 +299,22 @@ else {
   FrontLeftMotor.Set(0);
   FrontRightMotor.Set(0);
 }*/
-//backwards5ft
+//backwards5ft 
 if (autoChooser == "1") {
+  //Goes towards the charge station
   if (autoStep == 1 && AverageEncoderValue >= -20) {
-    FrontRightMotor.Set(-0.20);
-    FrontLeftMotor.Set(0.20);
+    FrontRightMotor.Set(-0.40);
+    FrontLeftMotor.Set(0.40);
 
     autoStep++;
 
   }
+  //makes robot stop on top of driver station
   else if (autoStep == 2 && AverageEncoderValue <= -20) {
     FrontLeftMotor.Set(0);
     FrontRightMotor.Set(0);
     
-    
-
-  }
+    }
 }//forwards5ft
 if (autoChooser == "2") {
   if (autoStep == 1 && AverageEncoderValue <= 20) {
@@ -329,11 +329,11 @@ if (autoChooser == "2") {
     FrontRightMotor.Set(0);
   }
 }
-
+//Auto to get onto the charge station
 if (autoChooser == "3") {
   if (autoStep == 1 && AverageEncoderValue <= 49) {
-    FrontLeftMotor.Set(-0.20);
-    FrontRightMotor.Set(0.20);
+    FrontLeftMotor.Set(-0.40);
+    FrontRightMotor.Set(0.40);
     
   }
   else if(autoStep == 1 && AverageEncoderValue >= 49) {
@@ -351,9 +351,33 @@ if (autoChooser == "3") {
     FrontLeftMotor.Set(0);
     FrontRightMotor.Set(0);
   }
-
+if (autoChooser == "4") {
+  //Arm and Extension (Scoring during auto)
+  if (autoStep == 1) {
+    ArmUpOne.Set(0.5);
+    ExtensionMotorOne.Set(0.5);
+    ExtensionMotorTwo.Set(0.5); 
+  }
+  else if (autoStep == 2 && AverageEncoderValue >= -49) {
+    FrontRightMotor.Set(0.4); 
+    FrontLeftMotor.Set(-0.4); 
+  } 
+  else if (autoStep == 2 && AverageEncoderValue <= -49){
+    autoStep++;
+  }
+  else if (autoStep == 3 && AverageEncoderValue <= -24) { 
+    FrontRightMotor.Set(-0.2); 
+    FrontLeftMotor.Set(0.2); 
+  } 
+  else if (autoStep == 3 && AverageEncoderValue >= -24) {
+    autoStep++; 
+  }
+  else if (autoStep == 4) {
+    FrontRightMotor.Set(0);
+    FrontLeftMotor.Set(0);
+  }
 }
-
+}
   // Score Preloaded Cone, then Leaving the community
   /*if (frc::SmartDashboard::GetNumber("Auto", 1) == 1)
   {
@@ -555,8 +579,17 @@ AverageArmEncoderValue = (ArmTwoEncoderValue + ArmOneEncoderValue)/2;
 ArmOneEncoderValue = -ArmOneEncoder.GetPosition();
 ArmTwoEncoderValue = ArmTwoEncoder.GetPosition();
 
+
+
 if (AverageArmEncoderValue <= 71.5) {
- 
+if (Xbox.GetPOV(0)) {
+  ExtensionMotorOne.Set(0.1);
+  ExtensionMotorTwo.Set(0.1);
+}
+else if (Xbox.GetPOV(180)) {
+  ExtensionMotorOne.Set(-0.1);
+  ExtensionMotorTwo.Set(-0.1);
+}
 if (Xbox.GetRawButton(5)) {
   ArmUpOne.Set(-0.2);
   ArmUpTwo.Set(0.2);
@@ -568,11 +601,15 @@ else if (Xbox.GetRawButton(6)) {
 else {
   ArmUpOne.Set(0);
   ArmUpTwo.Set(0);
+  ExtensionMotorOne.Set(0);
+  ExtensionMotorTwo.Set(0);
 }
 }
 else {
   ArmUpOne.Set(0);
   ArmUpTwo.Set(0);
+  ExtensionMotorOne.Set(0);
+  ExtensionMotorTwo.Set(0);
 }
 frc::SmartDashboard::PutString("DB/String 7", ("Average" + std::to_string(AverageEncoderValue)));
 
