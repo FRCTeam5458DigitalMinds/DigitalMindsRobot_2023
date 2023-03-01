@@ -144,6 +144,7 @@ bool buttonValueTwo;
 bool buttonValueThree;
 bool buttonValueFour;
 
+double YAW;
 RobotContainer chooseAuto;
 
 
@@ -218,12 +219,12 @@ void Robot::DisabledPeriodic() {}
 
 void Robot::AutonomousInit()
 {
-
+  gyro.Reset();
   autoStep = 1;
   RightEncoder.SetPosition(0);
   LeftEncoder.SetPosition(0);
-  ArmOneEncoder.SetPosition(0);
-  ArmTwoEncoder.SetPosition(0);
+  ExtensionMotorOne.SetSelectedSensorPosition(0);
+  ExtensionMotorTwo.SetSelectedSensorPosition(0);
   /* m_autonomousCommand = m_container.GetAutonomousCommand();
 
    if (m_autonomousCommand != nullptr) {
@@ -269,7 +270,8 @@ void Robot::AutonomousInit()
 void Robot::AutonomousPeriodic()
 {
 
-//frc::SmartDashboard::PutString("DB/String 8", ("Gyro Angle", (std::to_string(gyro.GetAngle()))));
+YAW = gyro.GetYaw();
+frc::SmartDashboard::PutString("DB/String 8", ((std::to_string(YAW))));
 
 
   std::string autoChooser = frc::SmartDashboard::GetString("DB/String 2", "myDefaultData");
@@ -302,7 +304,7 @@ else {
 //backwards5ft 
 if (autoChooser == "1") {
   //Goes towards the charge station
-  if (autoStep == 1 && AverageEncoderValue >= -20) {
+  if (autoStep == 1 && AverageEncoderValue >= -26.5) {
     FrontRightMotor.Set(-0.40);
     FrontLeftMotor.Set(0.40);
 
@@ -310,21 +312,21 @@ if (autoChooser == "1") {
 
   }
   //makes robot stop on top of driver station
-  else if (autoStep == 2 && AverageEncoderValue <= -20) {
+  else if (autoStep == 2 && AverageEncoderValue <= -26.5) {
     FrontLeftMotor.Set(0);
     FrontRightMotor.Set(0);
     
     }
 }//forwards5ft
 if (autoChooser == "2") {
-  if (autoStep == 1 && AverageEncoderValue <= 20) {
+  if (autoStep == 1 && AverageEncoderValue <= 27) {
     FrontRightMotor.Set(0.20);
     FrontLeftMotor.Set(-0.20);
 
     autoStep++;
 
   }
-  else if (autoStep == 2 && AverageEncoderValue >= 20) {
+  else if (autoStep == 2 && AverageEncoderValue >= 27) {
     FrontLeftMotor.Set(0);
     FrontRightMotor.Set(0);
   }
@@ -332,8 +334,8 @@ if (autoChooser == "2") {
 //Auto to get onto the charge station
 if (autoChooser == "3") {
   if (autoStep == 1 && AverageEncoderValue <= 49) {
-    FrontLeftMotor.Set(-0.40);
-    FrontRightMotor.Set(0.40);
+    FrontLeftMotor.Set(-0.20);
+    FrontRightMotor.Set(0.20);
     
   }
   else if(autoStep == 1 && AverageEncoderValue >= 49) {
@@ -553,12 +555,20 @@ if (autoChooser == "4") {
 
 void Robot::TeleopInit()
 {
+
+    buttonValueFour = frc::SmartDashboard::GetBoolean("DB/Button 3", false);
+
+  if (buttonValueFour == true)
+  {
+    ArmOneEncoder.SetPosition(0);
+    ArmTwoEncoder.SetPosition(0);
+  }
+  
   RightEncoder.SetPosition(0);
   LeftEncoder.SetPosition(0);
-  ArmOneEncoder.SetPosition(0);
-  ArmTwoEncoder.SetPosition(0);
   ExtensionMotorOne.SetSelectedSensorPosition(0);
- 
+  ExtensionMotorTwo.SetSelectedSensorPosition(0);
+  gyro.Reset();
 
   if (m_autonomousCommand != nullptr)
   {
@@ -569,7 +579,10 @@ void Robot::TeleopInit()
 
 void Robot::TeleopPeriodic(){
 
+
 //frc::SmartDashboard::PutString("DB/String 8", ("Gyro Angle", (std::to_string(gyro.GetAngle()))));
+YAW = gyro.GetYaw();
+frc::SmartDashboard::PutString("DB/String 8", ((std::to_string(YAW))));
 
 AverageEncoderValue = (LeftEncoderValue + RightEncoderValue)/2;
 LeftEncoderValue = -LeftEncoder.GetPosition();
@@ -579,9 +592,7 @@ AverageArmEncoderValue = (ArmTwoEncoderValue + ArmOneEncoderValue)/2;
 ArmOneEncoderValue = -ArmOneEncoder.GetPosition();
 ArmTwoEncoderValue = ArmTwoEncoder.GetPosition();
 
-
-
-if (AverageArmEncoderValue <= 71.5) {
+if ((AverageArmEncoderValue <= 4) && (AverageArmEncoderValue >= 0)) {
 if (Xbox.GetPOV(0)) {
   ExtensionMotorOne.Set(0.1);
   ExtensionMotorTwo.Set(0.1);
@@ -591,12 +602,12 @@ else if (Xbox.GetPOV(180)) {
   ExtensionMotorTwo.Set(-0.1);
 }
 if (Xbox.GetRawButton(5)) {
-  ArmUpOne.Set(-0.2);
-  ArmUpTwo.Set(0.2);
+  ArmUpOne.Set(-0.1);
+  ArmUpTwo.Set(0.1);
 }
 else if (Xbox.GetRawButton(6)) {
-  ArmUpOne.Set(0.2);
-  ArmUpTwo.Set(-0.2);
+  ArmUpOne.Set(0.1);
+  ArmUpTwo.Set(-0.1);
 }
 else {
   ArmUpOne.Set(0);
@@ -611,6 +622,20 @@ else {
   ExtensionMotorOne.Set(0);
   ExtensionMotorTwo.Set(0);
 }
+
+if (AverageArmEncoderValue >= 4) {
+  if (Xbox.GetRawButton(6)) {
+    ArmUpOne.Set(0.1);
+    ArmUpTwo.Set(-0.1);
+  }
+}
+if (AverageArmEncoderValue <= 0) {
+  if (Xbox.GetRawButton(5)) {
+    ArmUpOne.Set(-0.1);
+    ArmUpTwo.Set(0.1);
+  }
+}
+
 frc::SmartDashboard::PutString("DB/String 7", ("Average" + std::to_string(AverageEncoderValue)));
 
 
@@ -651,6 +676,24 @@ RollerMotor.Set(false);
   } 
 void Robot::TestPeriodic()
 {
+
+
+AverageArmEncoderValue = (ArmTwoEncoderValue + ArmOneEncoderValue)/2;
+ArmOneEncoderValue = -ArmOneEncoder.GetPosition();
+ArmTwoEncoderValue = ArmTwoEncoder.GetPosition();
+
+  if (Xbox.GetRawButton(5)) {
+  ArmUpOne.Set(-0.02);
+  ArmUpTwo.Set(0.02);
+}
+else if (Xbox.GetRawButton(6)) {
+  ArmUpOne.Set(0.02);
+  ArmUpTwo.Set(-0.02);
+}
+else {
+  ArmUpOne.Set(0);
+  ArmUpTwo.Set(0);
+}
 AverageArmEncoderValue = (ArmTwoEncoderValue + ArmOneEncoderValue)/2;
 ArmOneEncoderValue = -ArmOneEncoder.GetPosition();
 ArmTwoEncoderValue = ArmTwoEncoder.GetPosition();
@@ -662,9 +705,10 @@ ArmTwoEncoderValue = ArmTwoEncoder.GetPosition();
   buttonValueThree = frc::SmartDashboard::GetBoolean("DB/Button 2", false);
   buttonValueFour = frc::SmartDashboard::GetBoolean("DB/Button 3", false);
 
-  if (buttonValue == true)
+  if (buttonValueFour == true)
   {
-    frc::SmartDashboard::PutBoolean("DB/Button 2", true);
+    ArmOneEncoder.SetPosition(0);
+    ArmTwoEncoder.SetPosition(0);
   }
   else
   {
