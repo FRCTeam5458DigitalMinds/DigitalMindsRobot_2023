@@ -99,7 +99,7 @@ rev::SparkMaxRelativeEncoder RightEncoder = FrontRightMotor.GetEncoder();
 
 rev::CANSparkMax ArmUpOne{7, rev::CANSparkMax::MotorType::kBrushless};
 rev::CANSparkMax ArmUpTwo{8, rev::CANSparkMax::MotorType::kBrushless};
-
+rev::CANSparkMax ClawMotor{9, rev::CANSparkMax::MotorType::kBrushless};
 WPI_TalonFX ExtensionMotorOne {10};
 WPI_TalonFX ExtensionMotorTwo {11};
 
@@ -127,6 +127,8 @@ double triggerThresholdTime = .1;
 // Arigato Gyro CHU MIN MIN
 // Gyro + Accelerometer
 WPI_PigeonIMU gyro{12};
+frc::Compressor pcmCompressor{0, frc::PneumaticsModuleType::CTREPCM};
+frc::Solenoid SuctionMotor{frc::PneumaticsModuleType::CTREPCM, 14};
 
 // Auto Variables
 int autoStep = 1;
@@ -158,6 +160,7 @@ void Robot::RobotInit()
 
   SupplyCurrentLimitConfiguration current_limit_config(enable, currentLimit, triggerThresholdCurrent, triggerThresholdTime);
   ExtensionMotorOne.ConfigSupplyCurrentLimit(current_limit_config);
+  ExtensionMotorTwo.ConfigSupplyCurrentLimit(current_limit_config);
   // Follow ExtendMotorOne
   //ExtendMotorTwo.Follow(ExtendMotorOne);
 
@@ -177,7 +180,7 @@ void Robot::RobotInit()
   FrontRightMotor.SetSmartCurrentLimit(40);
   MiddleRightMotor.SetSmartCurrentLimit(40);
   BackRightMotor.SetSmartCurrentLimit(40);
-  //ClawMotor.SetSmartCurrentLimit(40);
+  ClawMotor.SetSmartCurrentLimit(40);
 
   // Talon Motor current limit
   //SupplyCurrentLimitConfiguration current_limit_config(enable, currentLimit, triggerThresholdCurrent, triggerThresholdTime);
@@ -197,7 +200,7 @@ void Robot::RobotInit()
   
 
   // Idle Mode Claw
- //ClawMotor.SetIdleMode(rev::CANSparkMax::IdleMode::kBrake);
+  ClawMotor.SetIdleMode(rev::CANSparkMax::IdleMode::kBrake);
 
   // Auto Chooser
 
@@ -555,7 +558,12 @@ if (autoChooser == "4") {
 
 void Robot::TeleopInit()
 {
-
+    buttonValueThree = frc::SmartDashboard::GetBoolean("DB/Button 2", false);
+  if (buttonValueThree == true)
+  {
+    ExtensionMotorOne.SetSelectedSensorPosition(0);
+    ExtensionMotorTwo.SetSelectedSensorPosition(0);
+  }
     buttonValueFour = frc::SmartDashboard::GetBoolean("DB/Button 3", false);
 
   if (buttonValueFour == true)
@@ -566,8 +574,6 @@ void Robot::TeleopInit()
   
   RightEncoder.SetPosition(0);
   LeftEncoder.SetPosition(0);
-  ExtensionMotorOne.SetSelectedSensorPosition(0);
-  ExtensionMotorTwo.SetSelectedSensorPosition(0);
   gyro.Reset();
 
   if (m_autonomousCommand != nullptr)
@@ -593,14 +599,7 @@ ArmOneEncoderValue = -ArmOneEncoder.GetPosition();
 ArmTwoEncoderValue = ArmTwoEncoder.GetPosition();
 
 if ((AverageArmEncoderValue <= 4) && (AverageArmEncoderValue >= 0)) {
-if (Xbox.GetPOV(0)) {
-  ExtensionMotorOne.Set(0.1);
-  ExtensionMotorTwo.Set(0.1);
-}
-else if (Xbox.GetPOV(180)) {
-  ExtensionMotorOne.Set(-0.1);
-  ExtensionMotorTwo.Set(-0.1);
-}
+
 if (Xbox.GetRawButton(5)) {
   ArmUpOne.Set(-0.1);
   ArmUpTwo.Set(0.1);
@@ -636,6 +635,36 @@ if (AverageArmEncoderValue <= 0) {
   }
 }
 
+if ((ExtensionMotorOne.GetSelectedSensorPosition() <= 80) && (ExtensionMotorOne.GetSelectedSensorPosition() >= 0)) {
+  if (Xbox.GetPOV(0)) {
+  ExtensionMotorOne.Set(0.1);
+  ExtensionMotorTwo.Set(0.1);
+}
+  else if (Xbox.GetPOV(180)) {
+    ExtensionMotorOne.Set(-0.1);
+    ExtensionMotorTwo.Set(-0.1);
+  }
+  else {
+    ExtensionMotorOne.Set(0);
+    ExtensionMotorTwo.Set(0);
+  }
+}
+if (ExtensionMotorOne.GetSelectedSensorPosition() >= 80){
+  if (Xbox.GetPOV(180)){
+    ExtensionMotorOne.Set(-0.1);
+    ExtensionMotorTwo.Set(-0.1);
+  }
+}
+if (ExtensionMotorOne.GetSelectedSensorPosition() <= 0){
+  if (Xbox.GetPOV(0)){
+    ExtensionMotorOne.Set(0.1);
+    ExtensionMotorOne.Set(0.1);
+  }
+}
+else {
+    ExtensionMotorOne.Set(0);
+    ExtensionMotorTwo.Set(0);
+}
 frc::SmartDashboard::PutString("DB/String 7", ("Average" + std::to_string(AverageEncoderValue)));
 
 
@@ -649,25 +678,20 @@ frc::SmartDashboard::PutString("DB/String 1", std::to_string(RightEncoderValue))
   
 
 
-/*
-SuctionMotors.Set(false);
-RollerMotor.Set(false);  
-  if (Xbox.GetRawButtonPressed(0)) {
-    SuctionMotors.Set(true);
-    RollerMotor.Set(true); 
-  }
-  else if (Xbox.GetRawButton(1)) {
-    SuctionMotors.Set(false);
-    RollerMotor.Set(false);
-  }
-  if (Xbox.GetRawButton(0)) {
-    ExtentionMotor.Set(.10);
-  }
-  else if (Xbox.GetRawButton(0)) {
-    ExtentionMotor.Set(-.10);
-  }
 
-  */
+SuctionMotor.Set(false);
+ClawMotor.Set(false);  
+  if (Xbox.GetRawButtonPressed(2)) {
+    SuctionMotor.Set(true);
+    ClawMotor.Set(true); 
+  }
+  else if (Xbox.GetRawButtonPressed(3)) {
+    SuctionMotor.Set(false);
+    ClawMotor.Set(false);
+  }
+  
+
+  
   double WheelX = -Wheel.GetX();
   double JoyY = JoyStick1.GetY();
   FrontLeftMotor.Set((WheelX*0.4) + (0.6*JoyY));
@@ -723,3 +747,7 @@ int main()
   return frc::StartRobot<Robot>();
 }
 #endif
+//Are your pants a compressed file....because I want to unzip it
+//Fork my heart....because Im ready to commit
+//Hey girl did you lose a timstamp, because im pretty sure its DateTime.now();
+//Mexicans when tacos are in the function
