@@ -747,7 +747,6 @@ int main()
   return frc::StartRobot<Robot>();
 }
 #endif
-//Are your pants a compressed file....because I want to unzip it
+
 //Fork my heart....because Im ready to commit
 //Hey girl did you lose a timstamp, because im pretty sure its DateTime.now();
-//Mexicans when tacos are in the function
