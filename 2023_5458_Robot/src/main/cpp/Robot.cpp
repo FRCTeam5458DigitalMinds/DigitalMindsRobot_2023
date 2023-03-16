@@ -108,6 +108,10 @@ rev::SparkMaxRelativeEncoder ArmTwoEncoder = ArmUpTwo.GetEncoder();
 
 frc::Compressor pcmCompressor{0, frc::PneumaticsModuleType::CTREPCM};
 frc::Solenoid Piston{frc::PneumaticsModuleType::CTREPCM, 0};
+
+frc::Solenoid Vent1{frc::PneumaticsModuleType::CTREPCM, 5};
+frc::Solenoid Vent2{frc::PneumaticsModuleType::CTREPCM, 6};
+frc::Solenoid Vent3{frc::PneumaticsModuleType::CTREPCM, 7};
 // robot variables
 double LeftEncoderValue;
 double RightEncoderValue;
@@ -149,8 +153,6 @@ double extensionvalue;
 steady_clock::time_point clock_begin;
 
 frc::Timer *shooterTimer;
-bool timerStarted = false;
-
 bool gyroResetted = false;
 
 //dashboard variables
@@ -159,6 +161,12 @@ bool buttonValueTwo;
 bool buttonValueThree;
 bool buttonValueFour;
 
+bool timerStarted = false;
+
+double highscorearm;
+double highscoreextend;
+double mediumscorearm;
+double mediumscoreextend;
 // PID Aspects
 double YAW;
 double ROLL;
@@ -167,6 +175,8 @@ double PITCH;
 bool coneintake;
 //Intake Outake Variable
 int bothTake = 1;
+
+frc::Timer *ventTimer;
 frc::Timer *pistonTimer;
 frc::Timer *clawTimer;
 
@@ -236,24 +246,25 @@ void Robot::DisabledPeriodic() {
 
 void Robot::AutonomousInit()
 {
+clawTimer->Reset();
 //Enabling the PCM compressor/Pnuematically controlled
 pcmCompressor.EnableDigital();
 ArmOneEncoder.SetPosition(0);
 ArmTwoEncoder.SetPosition(0);
 ExtensionMotorOne.SetSelectedSensorPosition(0);
 ExtensionMotorTwo.SetSelectedSensorPosition(0);
-  gyro.Reset();
-  autoStep = 1;
-  RightEncoder.SetPosition(0);
-  LeftEncoder.SetPosition(0);
-  ExtensionMotorOne.SetSelectedSensorPosition(0);
-  ExtensionMotorTwo.SetSelectedSensorPosition(0);
-  
-  clock_begin = steady_clock::now();
+gyro.Reset();
+autoStep = 1;
+RightEncoder.SetPosition(0);
+LeftEncoder.SetPosition(0);
+ExtensionMotorOne.SetSelectedSensorPosition(0);
+ExtensionMotorTwo.SetSelectedSensorPosition(0);
 
-  frc::CameraServer::StartAutomaticCapture();
+clock_begin = steady_clock::now();
 
-  
+frc::CameraServer::StartAutomaticCapture();
+
+
 }
 
 void Robot::AutonomousPeriodic()
@@ -261,6 +272,7 @@ void Robot::AutonomousPeriodic()
 {
 //Enabling the PCM compressor
 pcmCompressor.Enabled();
+Piston.Set(0);
 YAW = gyro.GetYaw();
 PITCH = gyro.GetPitch();
 ROLL = gyro.GetRoll() - 2;
@@ -287,6 +299,11 @@ std::string autoChooser = frc::SmartDashboard::GetString("DB/String 2", "myDefau
   frc::SmartDashboard::PutString("DB/String 0", ("Left: " + std::to_string(LeftEncoderValue)));
   frc::SmartDashboard::PutString("DB/String 1", ("Right: " + std::to_string(RightEncoderValue)));
 
+AverageArmEncoderValue = (ArmTwoEncoderValue + ArmOneEncoderValue)/2;
+ArmOneEncoderValue = -ArmOneEncoder.GetPosition();
+ArmTwoEncoderValue = ArmTwoEncoder.GetPosition();
+
+extensionvalue = ExtensionMotorOne.GetSelectedSensorPosition();
 //Auto 1: Only going on charge station: Front Side and No Scoring
     if (autoChooser == "1") {
   //Goes forwards towards the charge station inversed motors
@@ -331,6 +348,11 @@ std::string autoChooser = frc::SmartDashboard::GetString("DB/String 2", "myDefau
   
 //Auto 2: forwards5ft Out of the community
 if (autoChooser == "2") {
+  ClawMotor.Set(-0.3);
+  SRX_1.Set(0.3); 
+  SRX_2.Set(0.3);
+  SRX_3.Set(0.3); 
+
   if (autoStep == 1 && AverageEncoderValue <= 27) {
     speed = 0.4;
     FrontRightMotor.Set(speed);
@@ -345,113 +367,146 @@ if (autoChooser == "2") {
   }
 }
 
-//Auto 3: leave community and get onto the charge station
+//Auto 3: Score and leave the community
 if (autoChooser == "3") {
+  ClawMotor.Set(-0.3);
+  SRX_1.Set(true); 
+  SRX_2.Set(true);
+  SRX_3.Set(true); 
   //Arm and Extension (Scoring during auto)
+  extensionvalue = ExtensionMotorOne.GetSelectedSensorPosition();
+
   if (autoStep == 1) {
+    if(AverageArmEncoderValue >= highscorearm) {
     ArmUpOne.Set(0.2);
     ArmUpTwo.Set(-0.2);
-    sleep(2);
+  }
+  else {
+    ArmUpOne.Set(0);
+    ArmUpTwo.Set(0);
+  }
+  if(extensionvalue <= highscoreextend) {
     ExtensionMotorOne.Set(0.3);
     ExtensionMotorTwo.Set(0.3);
-    sleep(1);
-    autoStep++;
   }
-  //this will turn to the charge station
+  else {
+    ExtensionMotorOne.Set(0);
+    ExtensionMotorTwo.Set(0);
+  }
+  if (extensionvalue >= highscoreextend && AverageArmEncoderValue <= highscorearm) {
+      autoStep++;
+  }
+  }
+  //this will drop the cube
   else if (autoStep == 2) {
-    speed = 0.3;
-    FrontRightMotor.Set(speed); 
-    FrontLeftMotor.Set(speed); 
-    sleep(0.5);
-    autoStep++;
-  } 
-  else if (autoStep == 2) {
-    speed = 0.3; 
-    
-    ExtensionMotorOne.Set(-0.3); 
-    ExtensionMotorTwo.Set(-0.3); 
-    ArmUpOne.Set(-speed); 
-    ArmUpTwo.Set(-speed);
-    
-    sleep(1); 
-
-    autoStep++;
-
-  }
-  //this will go onto the charge station
-  else if (autoStep == 3) { 
-    speed = 0.2;
-    FrontRightMotor.Set(speed); 
-    FrontLeftMotor.Set(-speed); 
-    sleep(4);
-    autoStep++;
-  } 
-  else if (autoStep == 4) {
- ROLL = gyro.GetRoll() - 2;
-
-    if (ROLL >= -1 && ROLL <= 1) {
-        FrontLeftMotor.Set(0);
-        FrontRightMotor.Set(0);
+    if(!timerStarted) {
+    timerStarted = true;
+    clawTimer->Reset();
+    clawTimer->Start();
     }
-
-    else if (ROLL <= 10) {
-      if (ROLL > 3) {
-        FrontLeftMotor.Set(0.2);
-        FrontRightMotor.Set(-0.2);
-      }
-      else if (ROLL < 3) {
-        FrontLeftMotor.Set(0.05);
-        FrontRightMotor.Set(-0.05);
-    
+    if(clawTimer->Get() < (units::time::second_t)2) {
+      SRX_1.Set(false); 
+      SRX_2.Set(false);
+      SRX_3.Set(false); 
+      ClawMotor.Set(-0.3);
     }
-    else if (ROLL >= 10) {
-      if (ROLL < 3) {
-        FrontLeftMotor.Set(-0.2);
-        FrontRightMotor.Set(0.2);
-      }
-      if (ROLL > 3) {
-        FrontLeftMotor.Set(-0.05);
-        FrontRightMotor.Set(0.05);        
-      }
-  }
-    }
-  }
-
-  //if (frc::SmartDashboard::GetNumber("Auto", 1) == 5)
   
+  if(clawTimer->Get() > (units::time::second_t)2) {
+    if(AverageArmEncoderValue <= 7) {
+    ArmUpOne.Set(-0.2);
+    ArmUpTwo.Set(0.2);
+    }
+    else {
+      ArmUpOne.Set(0);
+      ArmUpTwo.Set(0);
+    }
+    if(extensionvalue >= 3000) {
+      ExtensionMotorOne.Set(-0.3);
+      ExtensionMotorTwo.Set(-0.3);
+    }
+    else {
+      ExtensionMotorOne.Set(0);
+      ExtensionMotorTwo.Set(0);
+    }
+  }
+  //this will go out of the community
+  else if (autoStep == 3) { 
+    speed = 0.3;
+    FrontRightMotor.Set(-speed); 
+    FrontLeftMotor.Set(speed); 
+    
+    autoStep++;
+  } 
 }
-//Auto 4: Scoring High and going out of the community, NO CHARGE STATION
+//Auto 4: Scoring High
 if (autoChooser == "4") {
    //Arm and Extension (Scoring during auto)
   if (autoStep == 1) {
-    ArmUpOne.Set(0.2);
-    ArmUpTwo.Set(-0.2);
-    sleep(2);
-    ExtensionMotorOne.Set(0.5);
-    ExtensionMotorTwo.Set(0.5); 
-    sleep(0.5);
+    if(AverageArmEncoderValue >= highscorearm) {
+      ArmUpOne.Set(0.2);
+      ArmUpTwo.Set(-0.2);
+    }
+    else {
+      ArmUpOne.Set(0);
+      ArmUpTwo.Set(0);
+    }
+    if(extensionvalue <= highscoreextend) {
+      ExtensionMotorOne.Set(0.3);
+      ExtensionMotorTwo.Set(0.3);
+    }
+    else {
+      ExtensionMotorOne.Set(0);
+      ExtensionMotorTwo.Set(0);
+    }
+    if (extensionvalue >= highscoreextend && AverageArmEncoderValue <= highscorearm) {
+      autoStep++;
+    }
   }
-  //this will go out of the community
-  else if (autoStep == 2 && AverageEncoderValue >= -30) {
-    speed = 0.4;
-    FrontRightMotor.Set(speed); 
-    FrontLeftMotor.Set(-speed); 
-  } 
-  else if (autoStep == 2 && AverageEncoderValue <= -30){
-    autoStep++;
-  }
-  else if (autoStep == 4) {
-    FrontRightMotor.Set(0);
-    FrontLeftMotor.Set(0);
-  }
-  }
+   //this will go out of the community
+    else if (autoStep == 2) {
+       if(!timerStarted) {
+    timerStarted = true;
+    clawTimer->Reset();
+    clawTimer->Start();
+    }
+    if(clawTimer->Get() < (units::time::second_t)2) {
+      SRX_1.Set(false); 
+      SRX_2.Set(false);
+      SRX_3.Set(false); 
+      ClawMotor.Set(-0.3);
+    }
+  
+  if(clawTimer->Get() > (units::time::second_t)2) {
+    if(AverageArmEncoderValue <= 7) {
+    ArmUpOne.Set(-0.2);
+    ArmUpTwo.Set(0.2);
+    }
+    else {
+      ArmUpOne.Set(0);
+      ArmUpTwo.Set(0);
+    }
+    if(extensionvalue >= 3000) {
+      ExtensionMotorOne.Set(-0.3);
+      ExtensionMotorTwo.Set(-0.3);
+    }
+    else {
+      ExtensionMotorOne.Set(0);
+      ExtensionMotorTwo.Set(0);
+    }
+    }
   }
   }
 }
-
-
+  }
+}
+}
 void Robot::TeleopInit()
 {
+  clawTimer->Reset();
+  Piston.Set(0);
+  Vent1.Set(0);
+  Vent2.Set(0);
+  Vent3.Set(0);
   SRX_1.Set(false);
   SRX_2.Set(false);
   SRX_3.Set(false);
@@ -461,7 +516,7 @@ void Robot::TeleopInit()
   ExtensionMotorOne.SetSelectedSensorPosition(0);
   ExtensionMotorTwo.SetSelectedSensorPosition(0);
   //Resetting sensor positions using buttons on the dashboard
-    buttonValueThree = frc::SmartDashboard::GetBoolean("DB/Button 2", false);
+  buttonValueThree = frc::SmartDashboard::GetBoolean("DB/Button 2", false);
   if (buttonValueThree == true)
   {
     ExtensionMotorOne.SetSelectedSensorPosition(0);
@@ -491,7 +546,7 @@ void Robot::TeleopInit()
 void Robot::TeleopPeriodic() { 
 
 buttonValueTwo = frc::SmartDashboard::GetBoolean("DB/Button 1", false);
-Piston.Set(0);
+
 if(pistonenable == true) {
   pistonTimer->Start();
   if (pistonTimer->Get() <= (units::time::second_t)0.5) {
@@ -506,6 +561,8 @@ if(pistonenable == true) {
 if (pistonenable == false) {
   Piston.Set(0);
 }
+
+
 pcmCompressor.EnableDigital();
 extensionvalue = ExtensionMotorOne.GetSelectedSensorPosition();
 
@@ -565,6 +622,7 @@ if(Xbox.GetRawButtonPressed(1)) {
   pistonenable = true;
 }
 
+
 if (extensionvalue <= maxextensionlimit && extensionvalue >= 0) {
   if (Xbox.GetRawButton(1)) {
   ExtensionMotorOne.Set(0.3);
@@ -601,7 +659,6 @@ if (extensionvalue >= maxextensionlimit){
 }
 if (extensionvalue <= 0){
   if (Xbox.GetRawButton(1)){
-    pistonenable = true;
     ExtensionMotorOne.Set(0.3);
     ExtensionMotorOne.Set(0.3);
 
@@ -687,14 +744,24 @@ frc::SmartDashboard::PutString("DB/String 6", std::to_string(ArmTwoEncoderValue)
 frc::SmartDashboard::PutString("DB/String 0", std::to_string(LeftEncoderValue));
 frc::SmartDashboard::PutString("DB/String 1", std::to_string(RightEncoderValue));
 //Turing the suction motors off
+
+if (Xbox.GetRawButtonPressed(3)) {
+  bothTake = 2;
+}
+if (Xbox.GetRawButtonPressed(4)) {
+  bothTake = 3;
+}
+
+
 if (bothTake == 1) {
 if (Xbox.GetRawAxis(3) >= 0.1) {
   coneintake = true;
 }
 if (coneintake == true) {
-  SRX_1.Set(0.6);
-  SRX_2.Set(0.6);
-  SRX_3.Set(0.6);
+  SRX_1.Set(true);
+  SRX_2.Set(true);
+  SRX_3.Set(true);
+
 }
 else {
   SRX_1.Set(false);
@@ -704,18 +771,11 @@ else {
 }
 }
 
-if (Xbox.GetRawButtonPressed(3)) {
-  bothTake = 2;
-}
-if (Xbox.GetRawButtonPressed(4)) {
-  bothTake = 3;
-}
-
 // turning it on based on the button pressed
   if (bothTake == 2) {
-    SRX_1.Set(0.6);
-    SRX_2.Set(0.6);
-    SRX_3.Set(0.6);
+    SRX_1.Set(true);
+    SRX_2.Set(true);
+    SRX_3.Set(true);
     ClawMotor.Set(0.3); 
 
   }
@@ -724,12 +784,21 @@ if (Xbox.GetRawButtonPressed(4)) {
     coneintake = false;
     clawTimer->Start();
 if(clawTimer->Get() < (units::time::second_t)3) {
+    ClawMotor.Set(-0.15);
+
     SRX_1.Set(false);
     SRX_2.Set(false);
     SRX_3.Set(false);
-    ClawMotor.Set(-0.4);
+
+    Vent1.Set(true);
+    Vent2.Set(true);
+    Vent3.Set(true);
 }
- else {   
+ else {
+    Vent1.Set(false);
+    Vent2.Set(false);
+    Vent3.Set(false);
+
     bothTake = 1;
     clawTimer->Reset();
  }
