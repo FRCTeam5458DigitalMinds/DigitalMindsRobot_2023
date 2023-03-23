@@ -84,7 +84,7 @@ rev::CANSparkMax MiddleRightMotor{4, rev::CANSparkMax::MotorType::kBrushless};
 rev::CANSparkMax BackRightMotor{6, rev::CANSparkMax::MotorType::kBrushless};
 
 //Intake Motor (New Intake)
-// rev::CANSparkMax Intake{25, rev::CANSparkMax::MotorType::kBrushless};
+rev::CANSparkMax Intake{25, rev::CANSparkMax::MotorType::kBrushless};
 
 //Drivetrain encoders
 rev::SparkMaxRelativeEncoder LeftEncoder = FrontLeftMotor.GetEncoder();
@@ -103,7 +103,7 @@ rev::SparkMaxRelativeEncoder ArmTwoEncoder = ArmUpTwo.GetEncoder();
 
 frc::Compressor pcmCompressor{0, frc::PneumaticsModuleType::CTREPCM};
 frc::Solenoid Piston{frc::PneumaticsModuleType::CTREPCM, 0};
-// frc::Solenoid IntakePiston{frc::PneumaticsModuleType::CTREPCM, 7};
+frc::Solenoid IntakePiston{frc::PneumaticsModuleType::CTREPCM, 1};
 
 
 frc::Solenoid Vent1{frc::PneumaticsModuleType::CTREPCM, 5};
@@ -183,7 +183,7 @@ frc::Timer *clawTimer;
 
 void Robot::RobotInit()
 {
-  //IntakePiston.Set(false); 
+  IntakePiston.Set(false); 
   gyro.Reset();
   Piston.Set(0);
   
@@ -661,7 +661,7 @@ void Robot::TeleopInit()
   gyro.Calibrate();
   clawTimer->Reset();
   Piston.Set(0);
-  // IntakePiston.Set(false);
+  IntakePiston.Set(false);
   Vent1.Set(0);
   Vent2.Set(0);
   Vent3.Set(0);
@@ -944,19 +944,19 @@ void Robot::TeleopPeriodic() {
       clawTimer->Reset();
     }
   }
-   /*if (JoyStick1.GetRawButton(1)) {
-    Intake.Set(-0.3);
+
+  if (JoyStick1.GetRawButton(1)) {
+    Intake.Set(0.5);
     IntakePiston.Set(true); 
   }
   else if (JoyStick1.GetRawButton(3)) {
-    Intake.Set(0.3); 
-    IntakePiston.Set(true); 
+    Intake.Set(-0.4);  
   }
   else {
     Intake.Set(0);
     IntakePiston.Set(false); 
   }
-*/
+
   //setting base values for teleop
   double WheelX = -Wheel.GetX();
   double JoyY = JoyStick1.GetY();
