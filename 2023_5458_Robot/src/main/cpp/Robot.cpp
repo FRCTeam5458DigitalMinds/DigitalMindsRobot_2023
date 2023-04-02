@@ -84,6 +84,7 @@ rev::CANSparkMax FrontRightMotor{2, rev::CANSparkMax::MotorType::kBrushless};
 rev::CANSparkMax MiddleRightMotor{4, rev::CANSparkMax::MotorType::kBrushless};
 rev::CANSparkMax BackRightMotor{6, rev::CANSparkMax::MotorType::kBrushless};
 
+
 //Intake Motor (New Intake)
 //rev::CANSparkMax Intake{25, rev::CANSparkMax::MotorType::kBrushless};
 
@@ -106,7 +107,7 @@ rev::SparkMaxRelativeEncoder ArmTwoEncoder = ArmUpTwo.GetEncoder();
 frc::Compressor pcmCompressor{0, frc::PneumaticsModuleType::CTREPCM};
 frc::Solenoid Piston{frc::PneumaticsModuleType::CTREPCM, 0};
 frc::Solenoid IntakePiston{frc::PneumaticsModuleType::CTREPCM, 1};
-
+frc::Solenoid Lights{frc::PneumaticsModuleType::CTREPCM, 3};
 
 frc::Solenoid Vent1{frc::PneumaticsModuleType::CTREPCM, 5};
 frc::Solenoid Vent2{frc::PneumaticsModuleType::CTREPCM, 6};
@@ -124,7 +125,7 @@ double AverageArmEncoderValue;
 double maxextensionlimit;
 double mainlimit;
 double maxanglelimit = 4;
-
+bool subpreset = false;
 bool pistonenable = false;
 
 // set amp limit
@@ -162,10 +163,12 @@ bool buttonValueThree;
 bool buttonValueFour;
 double k_rampTimeSeconds = 0.25;
 
+units::scalar_t vFactor;
+
 bool timerStarted = false;
 
-double highscorearm = -16;
-double highscoreextend = 108000;
+double highscorearm = -16.93;
+double highscoreextend = 72000;
 double mediumscorearm;
 double mediumscoreextend;
 
@@ -176,7 +179,7 @@ double YAW;
 double ROLL;
 double PITCH;
 double SPEED;
-
+double driveLimit;
 
 bool coneintake;
 
@@ -470,7 +473,7 @@ void Robot::AutonomousPeriodic()
   if (autoChooser == "4") {
     //Arm and Extension (Scoring during auto)
     if (autoStep == 1) {
-      if(AverageArmEncoderValue >= highscorearm) {
+      if (AverageArmEncoderValue >= highscorearm) {
         ArmUpOne.Set(0.2);
         ArmUpTwo.Set(-0.2);
       }
@@ -551,7 +554,7 @@ void Robot::AutonomousPeriodic()
     }
 
     if (autoStep == 2) {
-      if(YAW <= 3 && YAW >= -3) {
+      if (YAW <= 3 && YAW >= -3) {
         if (autoStep == 2 && AverageEncoderValue >= -45) {
           speed = -0.3;
           FrontRightMotor.Set(speed*0.9);
@@ -564,11 +567,11 @@ void Robot::AutonomousPeriodic()
       }
       else {
         if (AverageEncoderValue >= -45) {
-          if(YAW >= 3) {
+          if (YAW >= 3) {
             FrontRightMotor.Set(speed);
             FrontLeftMotor.Set(-speed*0.7);
           }
-          if(YAW <= -3) {
+          if (YAW <= -3) {
             FrontRightMotor.Set(speed*0.7);
             FrontLeftMotor.Set(-speed);
           }
@@ -628,7 +631,7 @@ void Robot::AutonomousPeriodic()
       FrontRightMotor.Set(speed);
       FrontLeftMotor.Set(-speed*0.9);
     }
-    if(autoStep == 3 && AverageEncoderValue >= 27){
+    if (autoStep == 3 && AverageEncoderValue >= 27){
       ROLL = gyro.GetRoll() - 2;
       if (ROLL >= -3 && ROLL <= 3) {
         FrontLeftMotor.Set(0);
@@ -650,11 +653,11 @@ void Robot::AutonomousPeriodic()
         }
       }
       else if (ROLL <= -3) {
-        if(YAW <= 3 && YAW >= -3) {
+        if (YAW <= 3 && YAW >= -3) {
           FrontLeftMotor.Set(-0.1);
           FrontRightMotor.Set(0.09);
         }
-        else if(YAW >= 3) {
+        else if (YAW >= 3) {
           FrontLeftMotor.Set(-0.1 * 0.7);
           FrontRightMotor.Set(0.09);
         }
@@ -724,7 +727,7 @@ void Robot::AutonomousPeriodic()
       FrontLeftMotor.Set(-speed*0.9);
     }
     //balancing charging station
-    if(autoStep == 3 && AverageEncoderValue >= 15){
+    if (autoStep == 3 && AverageEncoderValue >= 15){
       ROLL = gyro.GetRoll() - 2;
       if (ROLL >= -3 && ROLL <= 3) {
         FrontLeftMotor.Set(0);
@@ -746,11 +749,11 @@ void Robot::AutonomousPeriodic()
         }
       }
       else if (ROLL <= -3) {
-        if(YAW <= 3 && YAW >= -3) {
+        if (YAW <= 3 && YAW >= -3) {
           FrontLeftMotor.Set(-0.1);
           FrontRightMotor.Set(0.09);
         }
-        else if(YAW >= 3) {
+        else if (YAW >= 3) {
           FrontLeftMotor.Set(-0.1 * 0.7);
           FrontRightMotor.Set(0.09);
         }
@@ -782,7 +785,7 @@ void Robot::AutonomousPeriodic()
       }
     }
     if (autoStep == 3) {
-      if(YAW <= 3 && YAW >= -3) {
+      if (YAW <= 3 && YAW >= -3) {
         if (autoStep == 2 && AverageEncoderValue >= 50) {
           speed = 0.3;
           FrontRightMotor.Set(speed*0.9);
@@ -795,11 +798,11 @@ void Robot::AutonomousPeriodic()
       }
       else {
         if (AverageEncoderValue <= 50) {
-          if(YAW >= 3) {
+          if (YAW >= 3) {
             FrontRightMotor.Set(speed);
             FrontLeftMotor.Set(-speed*0.7);
           }
-          if(YAW <= -3) {
+          if (YAW <= -3) {
             FrontRightMotor.Set(speed*0.7);
             FrontLeftMotor.Set(-speed);
           }
@@ -855,18 +858,19 @@ void Robot::TeleopInit()
 }
 
 void Robot::TeleopPeriodic() { 
+  frc::SlewRateLimiter<units::scalar> filter{0.1 / 0.5_s};
 
   buttonValueTwo = frc::SmartDashboard::GetBoolean("DB/Button 1", false);
 
-  frc::SmartDashboard::PutString("DB/String 0", "LD" + std::to_string(LeftEncoderValue));
-  frc::SmartDashboard::PutString("DB/String 1", "RD" + std::to_string(RightEncoderValue));
-  frc::SmartDashboard::PutString("DB/String 3", "EL" + std::to_string(maxextensionlimit));
-  frc::SmartDashboard::PutString("DB/String 4", "EV" + std::to_string(extensionvalue));
-  frc::SmartDashboard::PutString("DB/String 5", "AOV" + std::to_string(ArmOneEncoderValue));
-  frc::SmartDashboard::PutString("DB/String 6", "ATV" + std::to_string(ArmTwoEncoderValue));
-  frc::SmartDashboard::PutString("DB/String 7", "AVDV" + std::to_string(AverageEncoderValue));
-  frc::SmartDashboard::PutString("DB/String 8", "ROLL" +((std::to_string(ROLL))));
-  frc::SmartDashboard::PutString("DB/String 9", "YAW" + ((std::to_string(YAW))));
+  frc::SmartDashboard::PutString("DB/String 0", "LD " + std::to_string(LeftEncoderValue));
+  frc::SmartDashboard::PutString("DB/String 1", "RD " + std::to_string(RightEncoderValue));
+  frc::SmartDashboard::PutString("DB/String 3", "EL " + std::to_string(maxextensionlimit));
+  frc::SmartDashboard::PutString("DB/String 4", "EV " + std::to_string(extensionvalue));
+  frc::SmartDashboard::PutString("DB/String 5", "AOV " + std::to_string(ArmOneEncoderValue));
+  frc::SmartDashboard::PutString("DB/String 6", "ATV " + std::to_string(ArmTwoEncoderValue));
+  frc::SmartDashboard::PutString("DB/String 7", "AVDV " + std::to_string(AverageEncoderValue));
+  frc::SmartDashboard::PutString("DB/String 8", "ROLL " +((std::to_string(ROLL))));
+  frc::SmartDashboard::PutString("DB/String 9", "YAW " + ((std::to_string(YAW))));
 
   pcmCompressor.EnableDigital();
   extensionvalue = ExtensionMotorOne.GetSelectedSensorPosition();
@@ -882,7 +886,7 @@ void Robot::TeleopPeriodic() {
   ArmTwoEncoderValue = ArmTwoEncoder.GetPosition();
   AverageArmEncoderValue = (ArmTwoEncoderValue + ArmOneEncoderValue)/2;
 
-  frc::SlewRateLimiter<units::scalar> filter{0.05 / 0.5_s};
+  
   
 
   if (buttonValueTwo == true) {
@@ -922,144 +926,135 @@ void Robot::TeleopPeriodic() {
     Piston.Set(0);
   }
 
-
-
-//Between ___ & 41 inches, the arm can retract & extend
-  if (extensionvalue <= maxextensionlimit && extensionvalue >= 0) {
-    if (Xbox.GetRawButtonPressed(9)) {
-      //arm to go up
-      //highTimer->Start();
-    //if (highTimer->Get() > (units::time::second_t)1.5) {
-      /*else if (ArmOneEncoderValue && ArmTwoEncoderValue == -16.928543){                  //if (extensionvalue < (highscoreextend - 2000)) {
-          Piston.Set(1); 
-          ArmUpOne.Set(0.4);
-          ArmUpTwo.Set(0.4); 
-          ExtensionMotorOne.Set(0.2);
-          ExtensionMotorTwo.Set(0.2);
-           
-        }
-      //arm to go down
-        else if (extensionvalue > (highscoreextend + 2000)) {
-          ArmUpOne.Set(-0.4); 
-          ArmUpTwo.Set(-0.4); 
-          ExtensionMotorOne.Set(-0.2);
-          ExtensionMotorTwo.Set(-0.2);
-          
-        }
-        else {
-          ExtensionMotorOne.Set(0);
-          ExtensionMotorTwo.Set(0);
-          Piston.Set(0);
-          highTimer->Reset();
-        }
-      //}
-      */
-    } 
-    
-    if (Xbox.GetRawButton(1)) {
-      ExtensionMotorOne.Set(0.3);
-      ExtensionMotorTwo.Set(0.3);
-      currentextend = ExtensionMotorOne.GetSelectedSensorPosition();
-    }
-    else if (Xbox.GetRawButton(2)) {
-      ExtensionMotorOne.Set(-0.3);
-      ExtensionMotorTwo.Set(-0.3);
-    }
-    else {
-      ExtensionMotorOne.Set(0);
-      ExtensionMotorTwo.Set(0);
-      Piston.Set(0);
-      currentextend = ExtensionMotorOne.GetSelectedSensorPosition();
-    }
-  } 
-//arm only retract
-  if (extensionvalue >= maxextensionlimit){
-    if (Xbox.GetRawButton(2)){
-      ExtensionMotorOne.Set(-0.3);
-      ExtensionMotorTwo.Set(-0.3);
-      currentextend = ExtensionMotorOne.GetSelectedSensorPosition();
-    }
-    else {
-      ExtensionMotorOne.Set(-0.2);
-      ExtensionMotorTwo.Set(-0.2);
-      Piston.Set(1);
+  if (Xbox.GetRawButton(8)) {
+    //arm to go 
+    if (extensionvalue <= maxextensionlimit && extensionvalue >= 0) {
+      if (extensionvalue <= 75000) {
+        Piston.Set(1);
+        ExtensionMotorOne.Set(0.3);
+        ExtensionMotorTwo.Set(0.3);
+      }
+      else {
+        ExtensionMotorOne.Set(0);
+        ExtensionMotorTwo.Set(0);
+        Piston.Set(0);
       }
     }
-  //arm only extend
-  if (extensionvalue <= 0){
-    if (Xbox.GetRawButton(1)){
-      ExtensionMotorOne.Set(0.3);
-      ExtensionMotorOne.Set(0.3);
-      currentextend = ExtensionMotorOne.GetSelectedSensorPosition();
-    }
     else {
       ExtensionMotorOne.Set(0);
       ExtensionMotorTwo.Set(0);
-      currentextend = ExtensionMotorOne.GetSelectedSensorPosition();
     }
-  } //point 2
-
-  if ((AverageArmEncoderValue >= -47) && (AverageArmEncoderValue <= 0)) {
-    //autopreset for cube
-    if (Xbox.GetRawButtonPressed(9)) {
-      //arm to go up
-      if (AverageArmEncoderValue < (highscorearm - 1.5)) {
+  
+    if (AverageArmEncoderValue >= -47) {
+      if (AverageArmEncoderValue <= -17.93) {
         ArmUpOne.Set(-0.25);
         ArmUpTwo.Set(0.25);
       }
       //arm to go down
-      else if (AverageArmEncoderValue > (highscorearm + 1.5)) {
+      else if (AverageArmEncoderValue >= -15.93) {
         ArmUpOne.Set(0.25);
         ArmUpTwo.Set(-0.25);
       }
       else {
         ArmUpOne.Set(0);
         ArmUpTwo.Set(0);
+      } 
+    }
+    else {
+      ArmUpOne.Set(0);
+      ArmUpTwo.Set(0);
+    }
+  }
+//Between ___ & 41 inches, the arm can retract & extend
+  if (!Xbox.GetRawButton(8)) {
+    if (extensionvalue <= maxextensionlimit && extensionvalue >= 0) {
+      if (Xbox.GetRawButton(1)) {
+        ExtensionMotorOne.Set(0.3);
+        ExtensionMotorTwo.Set(0.3);
+        currentextend = ExtensionMotorOne.GetSelectedSensorPosition();
       }
-    } 
-    
-    if (Xbox.GetRawButton(6)) {
-      ArmUpOne.Set(-0.2);
-      ArmUpTwo.Set(0.2);
-      currentarm = ArmOneEncoder.GetPosition();
+      else if (Xbox.GetRawButton(2)) {
+        ExtensionMotorOne.Set(-0.3);
+        ExtensionMotorTwo.Set(-0.3);
+      }
+      else {
+        ExtensionMotorOne.Set(0);
+        ExtensionMotorTwo.Set(0);
+        Piston.Set(0);
+        currentextend = ExtensionMotorOne.GetSelectedSensorPosition();
+      }
     }
-    else if (Xbox.GetRawButton(5)) {
-      ArmUpOne.Set(0.25);
-      ArmUpTwo.Set(-0.25);
-      currentarm = ArmOneEncoder.GetPosition();
+  //arm only retract
+    if (extensionvalue >= maxextensionlimit){
+      if (Xbox.GetRawButton(2)){
+        ExtensionMotorOne.Set(-0.3);
+        ExtensionMotorTwo.Set(-0.3);
+        currentextend = ExtensionMotorOne.GetSelectedSensorPosition();
+      }
+      else {
+        ExtensionMotorOne.Set(-0.2);
+        ExtensionMotorTwo.Set(-0.2);
+        Piston.Set(1);
+      }
     }
-    else {
-      ArmUpOne.Set(0);
-      ArmUpTwo.Set(0);
-      currentarm = ArmOneEncoder.GetPosition();
+    //arm only extend
+    if (extensionvalue <= 0){
+      if (Xbox.GetRawButton(1)){
+        ExtensionMotorOne.Set(0.3);
+        ExtensionMotorOne.Set(0.3);
+        currentextend = ExtensionMotorOne.GetSelectedSensorPosition();
+      }
+      else {
+        ExtensionMotorOne.Set(0);
+        ExtensionMotorTwo.Set(0);
+        currentextend = ExtensionMotorOne.GetSelectedSensorPosition();
+      }
     }
-  }
 
-  if (AverageArmEncoderValue <= -47) {
-    if (Xbox.GetRawButton(6)) {
-      ArmUpOne.Set(-0.2);
-      ArmUpTwo.Set(0.2);
-      currentarm = ArmOneEncoder.GetPosition();
+    if ((AverageArmEncoderValue >= -47) && (AverageArmEncoderValue <= 0)) {
+      //autopreset for cube
+      if (Xbox.GetRawButton(6)) {
+        ArmUpOne.Set(-0.25);
+        ArmUpTwo.Set(0.25);
+        currentarm = ArmOneEncoder.GetPosition();
+      }
+      else if (Xbox.GetRawButton(5)) {
+        ArmUpOne.Set(0.25);
+        ArmUpTwo.Set(-0.25);
+        currentarm = ArmOneEncoder.GetPosition();
+      }
+      else {
+        ArmUpOne.Set(0);
+        ArmUpTwo.Set(0);
+        currentarm = ArmOneEncoder.GetPosition();
+      }
     }
-    else {
-      ArmUpOne.Set(0);
-      ArmUpTwo.Set(0);
-      currentarm = ArmOneEncoder.GetPosition();
-    }
-  }
-  if (AverageArmEncoderValue >= 0) {
-    if (Xbox.GetRawButton(5)) {
-      ArmUpOne.Set(0.25);
-      ArmUpTwo.Set(-0.25); 
-      currentarm = ArmOneEncoder.GetPosition();
-    }
-    else {
-      ArmUpOne.Set(0);
-      ArmUpTwo.Set(0);
-      currentarm = ArmOneEncoder.GetPosition();
-    }
-  }
 
+    if (AverageArmEncoderValue <= -47) {
+      if (Xbox.GetRawButton(6)) {
+        ArmUpOne.Set(-0.2);
+        ArmUpTwo.Set(0.2);
+        currentarm = ArmOneEncoder.GetPosition();
+      }
+      else {
+        ArmUpOne.Set(0);
+        ArmUpTwo.Set(0);
+        currentarm = ArmOneEncoder.GetPosition();
+      }
+    }
+    if (AverageArmEncoderValue >= 0) {
+      if (Xbox.GetRawButton(5)) {
+        ArmUpOne.Set(0.25);
+        ArmUpTwo.Set(-0.25); 
+        currentarm = ArmOneEncoder.GetPosition();
+      }
+      else {
+        ArmUpOne.Set(0);
+        ArmUpTwo.Set(0);
+        currentarm = ArmOneEncoder.GetPosition();
+      }
+    }
+  }
   if (Xbox.GetRawButtonPressed(3)) {
     bothTake = 2;
   }
@@ -1104,7 +1099,7 @@ void Robot::TeleopPeriodic() {
     Vent2.Set(false);
     Vent3.Set(false);
     ClawMotor.Set(0.3); 
-
+    Lights.Set(true); 
   }
   //toggling the button off based on the button pressed
   else if (bothTake == 3) {
@@ -1120,6 +1115,7 @@ void Robot::TeleopPeriodic() {
       Vent1.Set(true);
       Vent2.Set(true);
       Vent3.Set(true);
+      Lights.Set(false);
     }
     else {
       Vent1.Set(false);
@@ -1142,25 +1138,33 @@ void Robot::TeleopPeriodic() {
     Intake.Set(0);
     IntakePiston.Set(false); 
   }
-
-
-
-
+  
   //setting base values for teleop
   double WheelX = -Wheel.GetX();
   double JoyY = JoyStick1.GetY();
   
-  if(JoyY > 0) {
+  /*
+  if (JoyY > 0 && !timerStarted) {
     driveTimer->Start();
-
-    units::time::second_t vFactor = driveTimer->Get();
-    
+    timerStarted = true;
   }
-  FrontLeftMotor.Set(filter.Calculate((WheelX*0.4) + (0.6*JoyY)));
-  FrontRightMotor.Set(filter.Calculate(((WheelX*0.4) - (0.6*JoyY)) * 0.9));
+  else {
+    driveTimer->Reset();
+    timerStarted = false;
+  }
+  units::scalar_t vFactor = driveTimer->Get();
 
+  driveLimit = vFactor *0.05;
+  */
+  double lmol = ((WheelX*0.4) + (0.6*JoyY));
+  double rmor = ((WheelX*0.4) - (0.6*JoyY)) * 0.9;
+
+  FrontLeftMotor.Set(lmol);
+  FrontRightMotor.Set(rmor);
+  
 }
 void Robot::TestPeriodic(){
+  
   if (Xbox.GetRawButton(4)) {
     ExtensionMotorOne.Set(0.5);
     ExtensionMotorTwo.Set(0.5);
