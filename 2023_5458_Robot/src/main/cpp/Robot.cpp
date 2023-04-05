@@ -122,6 +122,7 @@ double speed;
 double AverageEncoderValue;
 double AverageArmEncoderValue;
 
+bool autoStart = false;
 double maxextensionlimit;
 double mainlimit;
 double maxanglelimit = 4;
@@ -286,17 +287,15 @@ void Robot::AutonomousInit()
 
 void Robot::AutonomousPeriodic()
 {
-  frc::SmartDashboard::PutString("DB/String 8", ((std::to_string(ROLL))));
-  frc::SmartDashboard::PutString("DB/String 9", ((std::to_string(YAW))));
   //Enabling the PCM compressor
   pcmCompressor.Enabled();
   Piston.Set(0);
   YAW = gyro.GetYaw();
   PITCH = gyro.GetPitch();
   ROLL = gyro.GetRoll() - 2;
-
-  frc::SmartDashboard::PutString("DB/String 8", ((std::to_string(ROLL))));
-  frc::SmartDashboard::PutString("DB/String 7", ((std::to_string(YAW))));
+  frc::SmartDashboard::PutString("DB/String 8", ((std::to_string(autoStep))));
+  //frc::SmartDashboard::PutString("DB/String 8", ((std::to_string(ROLL))));
+  frc::SmartDashboard::PutString("DB/String 9", ((std::to_string(YAW))));
    frc::SmartDashboard::PutString("DB/String 3", ((std::to_string(maxextensionlimit))));
   std::string autoChooser = frc::SmartDashboard::GetString("DB/String 2", "myDefaultData");
 
@@ -469,6 +468,10 @@ void Robot::AutonomousPeriodic()
       }
     }
   }
+  if (autoChooser == "hamburger") {
+    FrontLeftMotor.Set(speed);
+    FrontRightMotor.Set(speed);
+  }
   //Auto 4: Scoring High
   if (autoChooser == "4") {
     //Arm and Extension (Scoring during auto)
@@ -552,7 +555,7 @@ void Robot::AutonomousPeriodic()
       ClawMotor.Set(0);*/
 
     }
-
+//Leave Community
     if (autoStep == 2) {
       if (YAW <= 3 && YAW >= -3) {
         if (autoStep == 2 && AverageEncoderValue >= -45) {
@@ -683,20 +686,21 @@ void Robot::AutonomousPeriodic()
     Intake.Set(-0.48);
     sleep(1.5);
     Intake.Set(0); 
-    autoStep++;
+    autoStep = 2;
     }
     //180 degree turn
     if (autoStep == 2) {
-      if (YAW <= 150){
+      if (YAW <= 173){
         speed = 0.15;
         FrontLeftMotor.Set(speed);
         FrontRightMotor.Set(speed);
       }
       else {
+        FrontLeftMotor.Set(0);
+        FrontRightMotor.Set(0);
         LeftEncoder.SetPosition(0);
         RightEncoder.SetPosition(0);
-        gyro.SetYaw(0);
-        autoStep++;
+        autoStep = 3;
       }
     }
     //over charging station
@@ -709,8 +713,9 @@ void Robot::AutonomousPeriodic()
       autoStep++;
     } 
     //turning again
-    if (YAW <= 150){
-      speed = 0.15;
+    if (autoStep == 4) {
+    if (YAW >= 7){
+      speed = -0.15;
       FrontLeftMotor.Set(speed);
       FrontRightMotor.Set(speed);
     }
@@ -720,14 +725,15 @@ void Robot::AutonomousPeriodic()
       RightEncoder.SetPosition(0);
       autoStep++;
     }
+    }
     //onto charging station
-    if (autoStep == 3 && AverageEncoderValue < 15) {
+    if (autoStep == 5 && AverageEncoderValue < 15) {
       speed = 0.3;
       FrontRightMotor.Set(speed);
       FrontLeftMotor.Set(-speed*0.9);
     }
     //balancing charging station
-    if (autoStep == 3 && AverageEncoderValue >= 15){
+    if (autoStep == 5 && AverageEncoderValue >= 15){
       ROLL = gyro.GetRoll() - 2;
       if (ROLL >= -3 && ROLL <= 3) {
         FrontLeftMotor.Set(0);
@@ -766,50 +772,63 @@ void Robot::AutonomousPeriodic()
   }
   if (autoChooser == "9") {
     if (autoStep == 1) {
-      IntakePiston.Set(false); 
       Intake.Set(-0.4); 
-      sleep(1.5); 
+      sleep(1.5);
+      Intake.Set(0);
       autoStep++;
+      /*if(autoStart == false) {
+        driveTimer->Start();
+        autoStart = true;
+      }
+      if(driveTimer->Get() > (units::time::second_t)1.5) {
+        autoStep++;
+      }*/
     }
     if (autoStep == 2) {
-      if (YAW <= 150){
+      if (YAW <= 173){
         speed = 0.15;
         FrontLeftMotor.Set(speed);
         FrontRightMotor.Set(speed);
       }
       else {
+        FrontLeftMotor.Set(0);
+        FrontRightMotor.Set(0);
         LeftEncoder.SetPosition(0);
         RightEncoder.SetPosition(0);
-        gyro.SetYaw(0);
         autoStep++;
       }
     }
     if (autoStep == 3) {
-      if (YAW <= 3 && YAW >= -3) {
-        if (autoStep == 2 && AverageEncoderValue >= 50) {
+      if (YAW <= 180 && YAW >= 174) {
+        if (AverageEncoderValue <= 55) {
           speed = 0.3;
-          FrontRightMotor.Set(speed*0.9);
+          FrontRightMotor.Set(speed);
           FrontLeftMotor.Set(-speed);
           }
         else {
           FrontRightMotor.Set(0);
           FrontLeftMotor.Set(0);
+          autoStep++;
         }
       }
       else {
-        if (AverageEncoderValue <= 50) {
-          if (YAW >= 3) {
-            FrontRightMotor.Set(speed);
-            FrontLeftMotor.Set(-speed*0.7);
-          }
-          if (YAW <= -3) {
+        if (AverageEncoderValue <= 55) {
+          if (YAW >= 180) {
             FrontRightMotor.Set(speed*0.7);
             FrontLeftMotor.Set(-speed);
+          }
+          if (YAW <= 174) {
+            FrontRightMotor.Set(speed);
+            FrontLeftMotor.Set(-speed*0.7);
           }
         }
         else {
           FrontRightMotor.Set(0);
           FrontLeftMotor.Set(0);
+          Intake.Set(0);
+          LeftEncoder.SetPosition(0);
+          RightEncoder.SetPosition(0);
+
           autoStep++;
         }
       }
@@ -819,6 +838,58 @@ void Robot::AutonomousPeriodic()
       Intake.Set(0.4); 
       sleep(2); 
       IntakePiston.Set(false);
+      Intake.Set(0);
+      autoStep = 5;
+    }
+    if (autoStep == 5) {
+      if (YAW >= 7){
+        speed = -0.15;
+        FrontLeftMotor.Set(speed);
+        FrontRightMotor.Set(speed);
+      }
+      else {
+        FrontLeftMotor.Set(0);
+        FrontRightMotor.Set(0);
+        LeftEncoder.SetPosition(0);
+        RightEncoder.SetPosition(0);
+        autoStep++;
+      }
+    }
+    if (autoStep == 6) {
+      if (YAW <= 3 && YAW >= -3) {
+        if (AverageEncoderValue <= 55) {
+          speed = 0.3;
+          FrontRightMotor.Set(speed);
+          FrontLeftMotor.Set(-speed);
+        }
+        else {
+          FrontRightMotor.Set(0);
+          FrontLeftMotor.Set(0);
+          autoStep++;
+        }
+      }
+      else {
+        if (AverageEncoderValue <= 55) {
+          if (YAW >= 3) {
+            FrontRightMotor.Set(speed*0.7);
+            FrontLeftMotor.Set(-speed);
+          }
+          if (YAW <= -3) {
+            FrontRightMotor.Set(speed);
+            FrontLeftMotor.Set(-speed*0.7);
+          }
+        }
+        else {
+          FrontRightMotor.Set(0);
+          FrontLeftMotor.Set(0);
+          //autoStep++;
+        }
+      }
+    }
+    if (autoStep == 7) {
+      Intake.Set(-0.4); 
+      sleep(1.5);
+      Intake.Set(0);
       autoStep++;
     }
   }
@@ -1062,7 +1133,7 @@ void Robot::TeleopPeriodic() {
     bothTake = 3;
   }
 
-
+//Cone intake
   if (bothTake == 1) {
     if (Xbox.GetRawAxis(3) >= 0.1) {
       coneintake = true;
@@ -1071,7 +1142,7 @@ void Robot::TeleopPeriodic() {
       SRX_1.Set(true);
       SRX_2.Set(true);
       SRX_3.Set(true);
-
+      Lights.Set(true); 
       Vent1.Set(false);
       Vent2.Set(false);
       Vent3.Set(false);
@@ -1080,7 +1151,7 @@ void Robot::TeleopPeriodic() {
       SRX_1.Set(false);
       SRX_2.Set(false);
       SRX_3.Set(false);
-      
+      Lights.Set(false); 
       Vent1.Set(true);
       Vent1.Set(true);
       Vent1.Set(true);
@@ -1099,7 +1170,7 @@ void Robot::TeleopPeriodic() {
     Vent2.Set(false);
     Vent3.Set(false);
     ClawMotor.Set(0.3); 
-    Lights.Set(true); 
+    
   }
   //toggling the button off based on the button pressed
   else if (bothTake == 3) {
@@ -1115,7 +1186,7 @@ void Robot::TeleopPeriodic() {
       Vent1.Set(true);
       Vent2.Set(true);
       Vent3.Set(true);
-      Lights.Set(false);
+      
     }
     else {
       Vent1.Set(false);
@@ -1156,8 +1227,8 @@ void Robot::TeleopPeriodic() {
 
   driveLimit = vFactor *0.05;
   */
-  double lmol = ((WheelX*0.4) + (0.6*JoyY));
-  double rmor = ((WheelX*0.4) - (0.6*JoyY)) * 0.9;
+  double lmol = ((WheelX*0.5) + (0.6*JoyY));
+  double rmor = ((WheelX*0.5) - (0.6*JoyY)) * 0.87;
 
   FrontLeftMotor.Set(lmol);
   FrontRightMotor.Set(rmor);
